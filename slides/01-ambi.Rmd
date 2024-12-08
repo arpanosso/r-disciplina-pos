@@ -1,0 +1,104 @@
+---
+title: "Ambientação"
+subtitle: "Estatística e Experimentação no Ambiente R"
+author: "Alan R Panosso <alan.panosso@unesp.br>"
+institute: "Pós-graduação Agronomia (Ciência do Solo)"
+date: "09 a 20 de dezembro de 2024"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+### Instalando o R
+
+Faça o download do R do site oficial The R Project for Statistical Computing <https://www.r-project.org/>
+
+Acesso rápido: [Download](<https://cran-r.c3sl.ufpr.br/bin/windows/base/R-4.4.2-win.exe>)
+
+
+Salve o arquivo de instalação em um diretório de seu computador e em seguida execute-o. 
+
+O processo é simples e intuitivo.
+
+### Instalando o RStudio
+
+É um ambiente de desenvolvimento integrado (IDE) para o R, disponível em <https://download1.rstudio.org/electron/windows/RStudio-2024.09.1-394.exe>
+
+Escolha o instalador de acordo com o seu sistema operacional. **Windows** no nosso caso.
+
+Novamente, salve o arquivo de instalação em um diretório de seu computador e em seguida execute-o.
+
+Após a instalação procure o ícone do R criado pelo instalador e clique nele.
+
+---
+
+### Pacotes no R 
+
+Um pacote é uma coleção de funções, exemplos e documentação. A funcionalidade de um pacote é frequentemente focada em uma metodologia estatística especial" (**Everitt & Hothorn**).
+
+```{r echo=FALSE, fig.cap="Pacotes no R são coleções de funções, exemoplos e documentações, os quais devem ser previamente instalados e alocados no ambiente por meio da função `library` ou `require`.",fig.align='center',out.width = "400px"}
+knitr::include_graphics("../img/Fig08.png")
+```
+
+
+---
+### Pacotes básicos
+
+Liste os pacotes carregados no ambiente com:
+
+```{r}
+(.packages())
+```
+
+O retorno da função é uma lista de nomes, `caracteres` (ou `strings`), na forma de um *objeto* denominado **vetor**. 
+
+Observe que cada pacote (elemento) é referenciado dentro do vetor por um índice, um número inteiro $[\;i\;]$ apresentado entre colchetes **[i]**, onde $i$ varia de $1$ a $7$, em nosso exemplo, pois sete é o número total de elementos do `vetor`.
+
+---
+
+### Carregue um pacote com a função `library`.
+
+```{r,message=FALSE}
+library(MASS)
+```
+
+Agora, liste novamente os pacotes e observe a diferença no retorno da função.
+
+```{r}
+(.packages())
+```
+
+
+---
+
+### Instalando pacotes
+
+Para a realização de vários procedimentos estatístico e manipulação de arquivos durante o curso, serão necessários vários pacotes que não fazem parte do `base` do R, que deverão ser instalados.
+
+**Utilizando a opção aba Packages** `Install/Packages`
+
+Instale alguns pacotes:  
+ 
+ * `tidyverse`   
+ * `agricolae`  
+ * `readxl`
+ * `stringr`
+ * `lubridate`
+
+Os pacotes também podem ser instalados a partir das linhas de comandos (códigos):
+
+```{r,eval=FALSE}
+install.packages("tidyverse")
+install.packages("agricolae")
+install.packages("readxl")
+install.packages("stringr")
+install.packages("lubridate")
+```
+
+
+
+

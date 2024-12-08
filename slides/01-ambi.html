@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Ambientação</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Alan R Panosso alan.panosso@unesp.br" />
+    <script src="libs/header-attrs-2.28/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Ambientação
+]
+.subtitle[
+## Estatística e Experimentação no Ambiente R
+]
+.author[
+### Alan R Panosso <a href="mailto:alan.panosso@unesp.br" class="email">alan.panosso@unesp.br</a>
+]
+.institute[
+### Pós-graduação Agronomia (Ciência do Solo)
+]
+.date[
+### 09 a 20 de dezembro de 2024
+]
+
+---
+
+
+### Instalando o R
+
+Faça o download do R do site oficial The R Project for Statistical Computing &lt;https://www.r-project.org/&gt;
+
+Acesso rápido: [Download](&lt;https://cran-r.c3sl.ufpr.br/bin/windows/base/R-4.4.2-win.exe&gt;)
+
+
+Salve o arquivo de instalação em um diretório de seu computador e em seguida execute-o. 
+
+O processo é simples e intuitivo.
+
+### Instalando o RStudio
+
+É um ambiente de desenvolvimento integrado (IDE) para o R, disponível em &lt;https://download1.rstudio.org/electron/windows/RStudio-2024.09.1-394.exe&gt;
+
+Escolha o instalador de acordo com o seu sistema operacional. **Windows** no nosso caso.
+
+Novamente, salve o arquivo de instalação em um diretório de seu computador e em seguida execute-o.
+
+Após a instalação procure o ícone do R criado pelo instalador e clique nele.
+
+---
+
+### Pacotes no R 
+
+Um pacote é uma coleção de funções, exemplos e documentação. A funcionalidade de um pacote é frequentemente focada em uma metodologia estatística especial" (**Everitt &amp; Hothorn**).
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="../img/Fig08.png" alt="Pacotes no R são coleções de funções, exemoplos e documentações, os quais devem ser previamente instalados e alocados no ambiente por meio da função `library` ou `require`." width="400px" /&gt;
+&lt;p class="caption"&gt;Pacotes no R são coleções de funções, exemoplos e documentações, os quais devem ser previamente instalados e alocados no ambiente por meio da função `library` ou `require`.&lt;/p&gt;
+&lt;/div&gt;
+
+
+---
+### Pacotes básicos
+
+Liste os pacotes carregados no ambiente com:
+
+
+``` r
+(.packages())
+```
+
+```
+## [1] "stats"     "graphics"  "grDevices" "utils"     "datasets"  "methods"  
+## [7] "base"
+```
+
+O retorno da função é uma lista de nomes, `caracteres` (ou `strings`), na forma de um *objeto* denominado **vetor**. 
+
+Observe que cada pacote (elemento) é referenciado dentro do vetor por um índice, um número inteiro `\([\;i\;]\)` apresentado entre colchetes **[i]**, onde `\(i\)` varia de `\(1\)` a `\(7\)`, em nosso exemplo, pois sete é o número total de elementos do `vetor`.
+
+---
+
+### Carregue um pacote com a função `library`.
+
+
+``` r
+library(MASS)
+```
+
+Agora, liste novamente os pacotes e observe a diferença no retorno da função.
+
+
+``` r
+(.packages())
+```
+
+```
+## [1] "MASS"      "stats"     "graphics"  "grDevices" "utils"     "datasets" 
+## [7] "methods"   "base"
+```
+
+
+---
+
+### Instalando pacotes
+
+Para a realização de vários procedimentos estatístico e manipulação de arquivos durante o curso, serão necessários vários pacotes que não fazem parte do `base` do R, que deverão ser instalados.
+
+**Utilizando a opção aba Packages** `Install/Packages`
+
+Instale alguns pacotes:  
+ 
+ * `tidyverse`   
+ * `agricolae`  
+ * `readxl`
+ * `stringr`
+ * `lubridate`
+
+Os pacotes também podem ser instalados a partir das linhas de comandos (códigos):
+
+
+``` r
+install.packages("tidyverse")
+install.packages("agricolae")
+install.packages("readxl")
+install.packages("stringr")
+install.packages("lubridate")
+```
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
