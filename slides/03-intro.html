@@ -53,65 +53,77 @@ Sem eles no R, não conseguiremos fazer Data Science.
 
 Para essa prática, vamos utilizar um banco de dados oriundo de um estudo geomorfológico.
 
-**Importação via web**   
+---
 
-Acesse o banco de dados na web: Clique no link para o arquivo  [geomorfologia.txt](https://raw.githubusercontent.com/arpanosso/r-disciplina-pos/master/data/geomorfologia.txt).
+### Importação via web 
+
+Acesse o banco de dados na web: Clique no link para o arquivo  [geomorfologia.txt](https://raw.githubusercontent.com/arpanosso/r-disciplina-pos/master/data/geomorfologia.txt)
 
 
 ``` r
 # definir o caminho
-URL &lt;- "../data/geomorfologia.txt"
+URL &lt;- "https://raw.githubusercontent.com/arpanosso/r-disciplina-pos/master/data/geomorfologia.txt"
   
 # Importação
-dados&lt;-read.table(URL,
-                  header = TRUE) # Argumento para cabeçalho na primeira linha
-
-# Inspeção do banco de dados
-head(dados) # mostra o 6 primeiros registros
+dados&lt;-read.table(URL,header = TRUE) # cabeçalho na primeira linha
+head(dados) # Inspeção do banco de dados
 ```
 
 ```
-##   SUP Solo Amostra   X AMG   AG   AM   AF  AMF SILTE ARGILA
-## 1   I   LV       1   0 0.2 3.72 20.4 22.9 30.0   1.2   21.5
-## 2   I   LV       2  25 0.1 4.27 22.6 23.6 28.4   1.2   20.4
-## 3   I   LV       3  50 0.7 5.00 22.7 22.2 26.9   1.2   21.4
-## 4   I   LV       4  75 0.4 3.80 23.7 24.4 26.7   0.6   20.5
-## 5   I   LV       5 100 0.4 3.10 22.3 24.6 26.9   2.1   20.7
-## 6   I   LV       6 125 0.4 3.80 23.8 19.1 27.1   2.2   23.5
-##    S_A AF_AG  P  pH    K  Ca  Mg H_Al   SB    T  V
-## 1 0.05  6.16 42 4.2 0.27 1.4 0.3  5.2 1.97 7.17 27
-## 2 0.05  5.53 22 3.8 0.11 0.4 0.1  5.8 0.61 6.41 10
-## 3 0.05  4.44 41 4.8 0.34 2.4 0.4  4.2 3.14 7.34 43
-## 4 0.02  6.42 27 4.0 0.13 0.7 0.1  5.2 0.93 6.13 15
-## 5 0.10  7.94 11 4.4 0.11 1.4 0.3  4.2 1.81 6.01 30
-## 6 0.09  5.03 12 4.0 0.14 0.6 0.1  5.2 0.84 6.04 14
+##   SUP Solo Amostra   X AMG   AG   AM   AF  AMF SILTE ARGILA  S_A AF_AG  P  pH
+## 1   I   LV       1   0 0.2 3.72 20.4 22.9 30.0   1.2   21.5 0.05  6.16 42 4.2
+## 2   I   LV       2  25 0.1 4.27 22.6 23.6 28.4   1.2   20.4 0.05  5.53 22 3.8
+## 3   I   LV       3  50 0.7 5.00 22.7 22.2 26.9   1.2   21.4 0.05  4.44 41 4.8
+## 4   I   LV       4  75 0.4 3.80 23.7 24.4 26.7   0.6   20.5 0.02  6.42 27 4.0
+## 5   I   LV       5 100 0.4 3.10 22.3 24.6 26.9   2.1   20.7 0.10  7.94 11 4.4
+## 6   I   LV       6 125 0.4 3.80 23.8 19.1 27.1   2.2   23.5 0.09  5.03 12 4.0
+##      K  Ca  Mg H_Al   SB    T  V
+## 1 0.27 1.4 0.3  5.2 1.97 7.17 27
+## 2 0.11 0.4 0.1  5.8 0.61 6.41 10
+## 3 0.34 2.4 0.4  4.2 3.14 7.34 43
+## 4 0.13 0.7 0.1  5.2 0.93 6.13 15
+## 5 0.11 1.4 0.3  4.2 1.81 6.01 30
+## 6 0.14 0.6 0.1  5.2 0.84 6.04 14
 ```
+---
 
-**Importação via Excel**   
+### Importação via Excel
 
-Acesse o banco de dados para essa prática, denominado [geomorfologia.xlsx](https://github.com/arpanosso/r_data_science_fcav/raw/master/dados/geomorfologia.xlsx), salve o arquivo em uma pasta de seu computador.
-
+Acesse o banco de dados para essa prática, denominado [geomorfologia.xlsx](https://raw.githubusercontent.com/arpanosso/r-disciplina-pos/master/data/geomorfologia.xlsx), salve o arquivo em uma pasta de seu computador.
 
 &lt;div class="figure" style="text-align: center"&gt;
 &lt;img src="../img/import_1.png" alt="Na aba **Environment** selecione a opção **Import Dataser** e escolha **From Excel...**" width="500px" /&gt;
 &lt;p class="caption"&gt;Na aba **Environment** selecione a opção **Import Dataser** e escolha **From Excel...**&lt;/p&gt;
 &lt;/div&gt;
 
+---
+
 &lt;div class="figure" style="text-align: center"&gt;
 &lt;img src="../img/import_2.png" alt="1) Clique em **Browse...**, acesse a pasta na qual você salvou o arquivo; 2) selecione o arquivo **geomorfologia.xlsx**; 3) clique em **Open.**" width="900px" /&gt;
 &lt;p class="caption"&gt;1) Clique em **Browse...**, acesse a pasta na qual você salvou o arquivo; 2) selecione o arquivo **geomorfologia.xlsx**; 3) clique em **Open.**&lt;/p&gt;
 &lt;/div&gt;
+
+---
 
 &lt;div class="figure" style="text-align: center"&gt;
 &lt;img src="../img/import_3.png" alt="Pré-visualização dos dados, observe que o código de importação é apresentado abaixo dessa janela. Copie esse código, e clique em **CANCEL**." width="800px" /&gt;
 &lt;p class="caption"&gt;Pré-visualização dos dados, observe que o código de importação é apresentado abaixo dessa janela. Copie esse código, e clique em **CANCEL**.&lt;/p&gt;
 &lt;/div&gt;
 
+---
+
 Cole as linhas de código no script do R e as execute, para ter a importação dos dados.
 
 
 ``` r
 library(readxl)
+```
+
+```
+## Warning: package 'readxl' was built under R version 4.3.3
+```
+
+``` r
 geomorfologia &lt;- read_excel("../data/geomorfologia.xlsx")
 ```
 
@@ -120,7 +132,9 @@ geomorfologia &lt;- read_excel("../data/geomorfologia.xlsx")
 &lt;p class="caption"&gt;Após executar o código, os dados devem ser apresentados dessa forma.&lt;/p&gt;
 &lt;/div&gt;
 
-## Organização
+---
+
+### Organização
 
 Uma vez que os dados estão no R, a próxima etapa é organizá-los, ou seja, armazená-los de uma forma consistente que combine a semântica da base de dados com a maneira com a qual eles são armazenados. 
 
@@ -131,9 +145,11 @@ Cada coluna é uma variável e cada linha é uma observação.
 &lt;p class="caption"&gt;Exemplo de dados organizados em planilha eletrônica, onde cada coluna é uma variável e cada linha é uma observação, ou registro.&lt;/p&gt;
 &lt;/div&gt;
 
+---
+
  &gt; Observação: O R, como a maioria dos softwares estatísticos, utiliza o **ponto** como **separador decimal**, ou seja, como o símbolo usado para separar a parte inteira da parte complementar não inteira da representação decimal do numeral de um real (ponto flutuante).
  
- &gt; Portanto, aconselhamos você a padronizar o separador decimal do seu computador. Para isso sigua os passos abaixo:
+Portanto, aconselhamos a padronizar o separador decimal do seu computador. Para isso sigua os passos abaixo:
 
 
 &lt;div class="figure" style="text-align: center"&gt;
@@ -141,7 +157,12 @@ Cada coluna é uma variável e cada linha é uma observação.
 &lt;p class="caption"&gt;Acesse o PAINEL DE CONTROLE, na opção REGIÃO clique em  CONFIGURAÇÕES ADICIONAIS... e modifique o SÍBOLO DECIMAL para PONTO e o SÍMBOLO DE AGRUPAMENTO DE DÍGITO para VÍRGULA.&lt;/p&gt;
 &lt;/div&gt;
 
+---
+
 Vamos conhecer a estrutura do nosso banco de dados, a partir da função `str`. 
+
+Podemos identificar que os dados são compostos por 106 linhas e 22 colunas. As duas primeiras colunas são do tipo texto (**chr** - *character*) e as demais colunas são numéricas (**num** - *numeric*).
+
 
 ``` r
 str(dados)
@@ -173,9 +194,11 @@ str(dados)
 ##  $ V      : num  27 10 43 15 30 14 43 66 31 60 ...
 ```
 
-Podemos identificar que os dados são compostos por 106 linhas e 22 colunas. As duas primeiras colunas são do tipo texto (**chr** - *character*) e as demais colunas são numéricas (**num** - *numeric*).
 
-## Transformação dos dados
+---
+
+
+### Transformação dos dados
 
 O termo transformação significa literalmente recortar o banco de dados, assim podemos focar nas observações de interesse. Criar novas variáveis em função das existentes e calcular, por exemplo, um resumo estatístico desse conjunto de interesse. 
 
@@ -219,6 +242,8 @@ str(da)
 ##  $ V      : num  27 10 43 15 30 14 43 66 31 60 ...
 ```
 
+---
+
 Vamos continuar o processo de filtragem e selecionar somente as colunas **SUP**, **ARGILA**, **SILTE** e **T**.
 
 
@@ -254,6 +279,8 @@ str(da)
 ##  $ Log_T   : num  0.856 0.807 0.866 0.787 0.779 ...
 ```
 
+---
+
 Agora vamos gerar um resumo estatístico para esses dados. A primeira coluna é do tipo texto, então, deve ser retirada do banco de dados auxiliar `da` antes de realizarmos os cálculos. Para isso, utilizamos o índice `\(-1\)` na dimensão das colunas do objeto `da`, ou seja, estamos retirando a coluna 1 **SUP** de `da`.
 
 
@@ -287,6 +314,10 @@ apply(da[,-1],2,median)
 ## 20.8500000  1.1000000  6.0850000 22.6500000  0.7842487
 ```
 
+
+---
+
+
 ``` r
 # Variância
 apply(da[,-1],2,var)
@@ -313,21 +344,23 @@ summary(da[,-1])
 ```
 
 ```
-##      ARGILA          SILTE             T        
-##  Min.   :18.50   Min.   :0.200   Min.   :4.840  
-##  1st Qu.:20.48   1st Qu.:0.475   1st Qu.:5.760  
-##  Median :20.85   Median :1.100   Median :6.085  
-##  Mean   :21.19   Mean   :1.212   Mean   :6.262  
-##  3rd Qu.:22.18   3rd Qu.:2.125   3rd Qu.:7.213  
-##  Max.   :23.50   Max.   :2.600   Max.   :7.840  
-##     ARG_SILT         Log_T       
-##  Min.   :18.70   Min.   :0.6848  
-##  1st Qu.:21.32   1st Qu.:0.7598  
-##  Median :22.65   Median :0.7842  
-##  Mean   :22.41   Mean   :0.7921  
-##  3rd Qu.:23.20   3rd Qu.:0.8581  
-##  Max.   :25.70   Max.   :0.8943
+##      ARGILA          SILTE             T            ARG_SILT    
+##  Min.   :18.50   Min.   :0.200   Min.   :4.840   Min.   :18.70  
+##  1st Qu.:20.48   1st Qu.:0.475   1st Qu.:5.760   1st Qu.:21.32  
+##  Median :20.85   Median :1.100   Median :6.085   Median :22.65  
+##  Mean   :21.19   Mean   :1.212   Mean   :6.262   Mean   :22.41  
+##  3rd Qu.:22.18   3rd Qu.:2.125   3rd Qu.:7.213   3rd Qu.:23.20  
+##  Max.   :23.50   Max.   :2.600   Max.   :7.840   Max.   :25.70  
+##      Log_T       
+##  Min.   :0.6848  
+##  1st Qu.:0.7598  
+##  Median :0.7842  
+##  Mean   :0.7921  
+##  3rd Qu.:0.8581  
+##  Max.   :0.8943
 ```
+
+---
 
 Agora podemos gerar o conhecimento, por meio da **Visualização** e **Modelagem**.
 
@@ -338,19 +371,26 @@ Essas tem suas vantegens e desvantagens as quais são complementares, portanto, 
 &lt;p class="caption"&gt;Visualização e modelagem são dois processos iterativos, onde a matemática é uma ferramenta essencial para a extração de padrões, declaração e testes de hipóteses.&lt;/p&gt;
 &lt;/div&gt;
 
-## Visualização
+---
+
+### Visualização
 
 Atividade fundamentalmente humana, uma boa visualização lhe mostrará coisas que não esperava, ou levantará novas questões sobre os dados. Além disso, pode mostrar também que você esta fazendo a pergunta errada, ou que precisa coletar dados diferentes. Visualizações podem surpreender o analista de dados, mas não escalam particularmente bem, por que requerem um humano para interpretá-las.
 
+---
+
+class: middle, center
 
 
 ``` r
 plot(da$ARGILA,da$T)
 ```
 
-![](03-intro_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+![](03-intro_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
 
-## Modelação
+---
+
+### Modelação
 
 *Modelo* são ferramentas complementares da visualização. Uma vez que você tenha feito perguntas suficientemente precisas, poderá usar um modelo para respondê-las. Modelos são fundamentalmente matemáticos ou computacionais, então, geralmente escalam muito bem. Porém, cada modelo faz suposições e, por sua própria natureza, não podem questionar suas própria hipóteses, ou seja, um modelo não pode nos surpreender.
 
@@ -386,7 +426,9 @@ summary.lm(mod)
 abline(mod)
 ```
 
-![](03-intro_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+![](03-intro_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+
+---
 
 
 ### Exemplo de Análise multivariada (PCA)
@@ -395,14 +437,42 @@ abline(mod)
 &lt;img src="../img/multivariada.png" alt="Classificação das técnicas multivariadas (Dependências e Interdependência)." width="400px" /&gt;
 &lt;p class="caption"&gt;Classificação das técnicas multivariadas (Dependências e Interdependência).&lt;/p&gt;
 &lt;/div&gt;
+
+
+---
+
 Carregando alguns pacotes
 
 
 ``` r
 library(vegan)
+```
+
+```
+## Carregando pacotes exigidos: permute
+```
+
+```
+## Carregando pacotes exigidos: lattice
+```
+
+```
+## This is vegan 2.6-8
+```
+
+``` r
 library(corrplot)
 ```
 
+```
+## Warning: package 'corrplot' was built under R version 4.3.3
+```
+
+```
+## corrplot 0.94 loaded
+```
+
+---
 Matriz de Correlação
 
 
@@ -412,22 +482,28 @@ matriz_correlacao &lt;- cor(geomorfo_num)
 corrplot(matriz_correlacao)
 ```
 
-![](03-intro_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+![](03-intro_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+
+---
 
 
 ``` r
 corrplot(matriz_correlacao, method = "ellipse")
 ```
 
-![](03-intro_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+![](03-intro_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+
+---
 
 
 ``` r
 corrplot.mixed(matriz_correlacao, lower.col = "black", upper = "ellipse")
 ```
 
-![](03-intro_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+![](03-intro_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
 
+
+---
 Notoriamente existem muitas variáveis, vamos filtar e transformas
 
 
@@ -459,6 +535,9 @@ str(geomorfo_num)
 ``` r
 geomorfo_num$AREIA &lt;- geomorfo_num$AG + geomorfo_num$AM + geomorfo_num$AF + geomorfo_num$AMF
 ```
+
+---
+
 Vamos selecionar alguams variáveis
 
 
@@ -468,7 +547,9 @@ matriz_correlacao_selecionada &lt;- cor(geomorfo_nun_selecionada)
 corrplot.mixed(matriz_correlacao_selecionada,lower.col = "black", upper = "ellipse")
 ```
 
-![](03-intro_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+![](03-intro_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+
+---
 
 Para a análise de componente principais, primeiramente devemos padronizar o banco de dados, assim utilizamos o argumento `scale = TRUE` da funçaõ `prcompr`.
 
@@ -481,15 +562,17 @@ summary(pca)
 
 ```
 ## Importance of components:
-##                           PC1    PC2    PC3     PC4     PC5
-## Standard deviation     1.9208 1.5089 1.1682 0.89358 0.69509
-## Proportion of Variance 0.4099 0.2530 0.1516 0.08872 0.05368
-## Cumulative Proportion  0.4099 0.6629 0.8146 0.90328 0.95697
-##                            PC6     PC7     PC8     PC9
-## Standard deviation     0.51859 0.24150 0.19093 0.15359
-## Proportion of Variance 0.02988 0.00648 0.00405 0.00262
-## Cumulative Proportion  0.98685 0.99333 0.99738 1.00000
+##                           PC1    PC2    PC3     PC4     PC5     PC6     PC7
+## Standard deviation     1.9208 1.5089 1.1682 0.89358 0.69509 0.51859 0.24150
+## Proportion of Variance 0.4099 0.2530 0.1516 0.08872 0.05368 0.02988 0.00648
+## Cumulative Proportion  0.4099 0.6629 0.8146 0.90328 0.95697 0.98685 0.99333
+##                            PC8     PC9
+## Standard deviation     0.19093 0.15359
+## Proportion of Variance 0.00405 0.00262
+## Cumulative Proportion  0.99738 1.00000
 ```
+
+---
 
 Extraindo os autovalores
 
@@ -500,8 +583,8 @@ eig
 ```
 
 ```
-## [1] 3.68947383 2.27684828 1.36474606 0.79848178 0.48314722
-## [6] 0.26893875 0.05832218 0.03645306 0.02358884
+## [1] 3.68947383 2.27684828 1.36474606 0.79848178 0.48314722 0.26893875 0.05832218
+## [8] 0.03645306 0.02358884
 ```
 
 Porcentagem da variância explicada por cada componente
@@ -513,8 +596,8 @@ ve
 ```
 
 ```
-## [1] 0.409941537 0.252983142 0.151638451 0.088720198 0.053683025
-## [6] 0.029882083 0.006480242 0.004050340 0.002620982
+## [1] 0.409941537 0.252983142 0.151638451 0.088720198 0.053683025 0.029882083
+## [7] 0.006480242 0.004050340 0.002620982
 ```
 
 Porcentagem acumulada
@@ -524,18 +607,14 @@ cumsum(ve)
 ```
 
 ```
-## [1] 0.4099415 0.6629247 0.8145631 0.9032833 0.9569664 0.9868484
-## [7] 0.9933287 0.9973790 1.0000000
+## [1] 0.4099415 0.6629247 0.8145631 0.9032833 0.9569664 0.9868484 0.9933287
+## [8] 0.9973790 1.0000000
 ```
 
 
 
-``` r
-# pca # Autovalores das variáveis
-# pca$x # coordenadas dos acessos
-```
 
-
+---
 Correlações entre cada variável - poder discriminante
 
 ``` r
@@ -543,7 +622,9 @@ mcor&lt;-cor(da, pca$x)
 corrplot(mcor)
 ```
 
-![](03-intro_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
+![](03-intro_files/figure-html/unnamed-chunk-31-1.png)&lt;!-- --&gt;
+
+---
 
 Screeplot, para verificar os PC maiores que a Unidade, de acordo com Kaiser, valores maiores que 1
 
@@ -552,7 +633,7 @@ Screeplot, para verificar os PC maiores que a Unidade, de acordo com Kaiser, val
 screeplot(pca)
 ```
 
-![](03-intro_files/figure-html/unnamed-chunk-31-1.png)&lt;!-- --&gt;
+![](03-intro_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
 
 ``` r
 barplot(eig,
@@ -563,19 +644,26 @@ barplot(eig,
 abline(h=1,lty=2)
 ```
 
-![](03-intro_files/figure-html/unnamed-chunk-31-2.png)&lt;!-- --&gt;
+![](03-intro_files/figure-html/unnamed-chunk-32-2.png)&lt;!-- --&gt;
+
+``` r
+grupos &lt;- geomorfologia$SUP
+```
+
+---
 
 Construção do Biplot e sua tabela
 
 ``` r
-grupos &lt;- geomorfologia$SUP
 biplot(rda(da),pch=2)
 ordihull(rda(da),
          group = grupos,
          col=1:nlevels(as.factor(grupos)))
 ```
 
-![](03-intro_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
+![](03-intro_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
+
+---
 
 Construção do biplot usando as funções básicas
 
@@ -606,7 +694,13 @@ for(i in 1:length(nlv)){
    text(pc1c[ff],pc2c[ff],grupos[ff],cex=.8,col=i)}
 ```
 
-![](03-intro_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
+---
+
+### Biplot
+
+![](03-intro_files/figure-html/plot_1-1.png)&lt;!-- --&gt;
+
+---
 
 Tabela do Biplot com as correlações com as PCs e seus respectivos autovetores
 
@@ -616,20 +710,6 @@ tabelapca&lt;-vector()
 for( l in 1:ck) tabelapca&lt;-cbind(tabelapca,mcor[,l])#,pca$rotation[,l])
 colnames(tabelapca)&lt;-paste(rep(c("PC"),ck),1:ck,sep="")
 pcat&lt;-round(tabelapca,3)
-summary(pcat)
-```
-
-```
-##       PC1               PC2               PC3         
-##  Min.   :-0.7740   Min.   :-0.6470   Min.   :-0.7450  
-##  1st Qu.: 0.0860   1st Qu.:-0.5990   1st Qu.:-0.2750  
-##  Median : 0.4590   Median :-0.4460   Median : 0.0560  
-##  Mean   : 0.2561   Mean   :-0.2092   Mean   :-0.1451  
-##  3rd Qu.: 0.7170   3rd Qu.: 0.0650   3rd Qu.: 0.1340  
-##  Max.   : 0.8960   Max.   : 0.8150   Max.   : 0.2860
-```
-
-``` r
 tabelapca&lt;-tabelapca[order(abs(tabelapca[,1])),]
 tabelapca
 ```
@@ -647,19 +727,34 @@ tabelapca
 ## pH      0.89593784  0.12384873 -0.26991837
 ```
 
+---
+
 Uma opção à tabela resumo
 
 
 ``` r
 library(plotrix)
-pyramid.plot(abs(tabelapca[,1]),abs(tabelapca[,2]),
-             labels = names(tabelapca[,1]),
-             unit="Correlation",gap=.1,raxlab=c(0,0.25,.5,.75,1),
-             top.labels = c("PC1 (33.85%)", "Variable", "PC2 (25.16%)"),
-laxlab=c(0,0.25,.5,.75,1),
-             lxcol=c("darkgray","white","darkgray","darkgray","darkgray",
-             "darkgray"),rxcol=c("white","white","darkgray","darkgray",
-             "white","white"))
+{
+  pyramid.plot(abs(tabelapca[,1]),abs(tabelapca[,2]),
+               labels = names(tabelapca[,1]),
+               unit="Correlation",gap=.1,raxlab=c(0,0.25,.5,.75,1),
+               top.labels = c("PC1 (33.85%)", "Variable", "PC2 (25.16%)"),
+               laxlab=c(0,0.25,.5,.75,1),
+               lxcol=c("darkgray","white","darkgray","darkgray","darkgray",
+                       "darkgray"),
+               rxcol=c("white","white","darkgray","darkgray",
+                       "white","white"))
+  text(-1*abs(tabelapca[,1]),1:6,round(tabelapca[,1],2))
+  text(abs(tabelapca[,2]+c(0,0,0,0,-.04,0)),1:6,round(tabelapca[,2],2))
+  box()
+}
+```
+
+---
+
+
+```
+## Warning: package 'plotrix' was built under R version 4.3.2
 ```
 
 ```
@@ -667,27 +762,15 @@ laxlab=c(0,0.25,.5,.75,1),
 ```
 
 ```
-## [1] 5.1 4.1 4.1 2.1
+## Warning in tabelapca[, 2] + c(0, 0, 0, 0, -0.04, 0): comprimento do objeto
+## maior não é múltiplo do comprimento do objeto menor
 ```
 
-``` r
-text(-1*abs(tabelapca[,1]),1:6,round(tabelapca[,1],2))
-text(abs(tabelapca[,2]+c(0,0,0,0,-.04,0)),1:6,round(tabelapca[,2],2))
-```
+![](03-intro_files/figure-html/plot_2-1.png)&lt;!-- --&gt;
 
-```
-## Warning in tabelapca[, 2] + c(0, 0, 0, 0, -0.04, 0):
-## comprimento do objeto maior não é múltiplo do comprimento do
-## objeto menor
-```
 
-``` r
-box()
-```
-
-![](03-intro_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
-
-## Comunicação
+---
+### Comunicação
 
 É a última etapa do Data Science, a mais importante. Não importa quão bem seus modelos e visualizações o levaram a entender os dados, a menos que você também consiga comunicar seus resultados para outras pessoas.
 
@@ -698,7 +781,8 @@ Uma dica importante, é estudar **RMarkdown**! Ótima linguagem de marcação de
 &lt;p class="caption"&gt;https://bookdown.org/yihui/rmarkdown-cookbook/&lt;/p&gt;
 &lt;/div&gt;
 
-## Programação
+---
+### Programação
 
 Permeia todas as etapas da Ciência dos Dados.
 
@@ -719,6 +803,8 @@ R é um ambiente e linguagem de programação de código aberto para computaçã
     + Você pode corrigir problemas.
 
     + Você pode desenvolver suas próprias ferramentas.
+
+---
 
   * Linguagem orientada a objetos R  (Ross Ihaka e Robert Gentleman).
 

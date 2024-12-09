@@ -34,38 +34,43 @@ Sem eles no R, não conseguiremos fazer Data Science.
 
 Para essa prática, vamos utilizar um banco de dados oriundo de um estudo geomorfológico.
 
-**Importação via web**   
+---
 
-Acesse o banco de dados na web: Clique no link para o arquivo  [geomorfologia.txt](https://raw.githubusercontent.com/arpanosso/r-disciplina-pos/master/data/geomorfologia.txt).
+### Importação via web 
+
+Acesse o banco de dados na web: Clique no link para o arquivo  [geomorfologia.txt](https://raw.githubusercontent.com/arpanosso/r-disciplina-pos/master/data/geomorfologia.txt)
 
 ```{r}
 # definir o caminho
-URL <- "../data/geomorfologia.txt"
+URL <- "https://raw.githubusercontent.com/arpanosso/r-disciplina-pos/master/data/geomorfologia.txt"
   
 # Importação
-dados<-read.table(URL,
-                  header = TRUE) # Argumento para cabeçalho na primeira linha
-
-# Inspeção do banco de dados
-head(dados) # mostra o 6 primeiros registros
+dados<-read.table(URL,header = TRUE) # cabeçalho na primeira linha
+head(dados) # Inspeção do banco de dados
 ```
+---
 
-**Importação via Excel**   
+### Importação via Excel
 
-Acesse o banco de dados para essa prática, denominado [geomorfologia.xlsx](https://github.com/arpanosso/r_data_science_fcav/raw/master/dados/geomorfologia.xlsx), salve o arquivo em uma pasta de seu computador.
-
+Acesse o banco de dados para essa prática, denominado [geomorfologia.xlsx](https://raw.githubusercontent.com/arpanosso/r-disciplina-pos/master/data/geomorfologia.xlsx), salve o arquivo em uma pasta de seu computador.
 
 ```{r echo=FALSE, fig.cap="Na aba **Environment** selecione a opção **Import Dataser** e escolha **From Excel...**", fig.align='center', out.width = "500px"}
 knitr::include_graphics("../img/import_1.png")
 ```
 
+---
+
 ```{r echo=FALSE, fig.cap="1) Clique em **Browse...**, acesse a pasta na qual você salvou o arquivo; 2) selecione o arquivo **geomorfologia.xlsx**; 3) clique em **Open.**", fig.align='center', out.width = "900px"}
 knitr::include_graphics("../img/import_2.png")
 ```
 
+---
+
 ```{r echo=FALSE, fig.cap="Pré-visualização dos dados, observe que o código de importação é apresentado abaixo dessa janela. Copie esse código, e clique em **CANCEL**.", fig.align='center', out.width = "800px"}
 knitr::include_graphics("../img/import_3.png")
 ```
+
+---
 
 Cole as linhas de código no script do R e as execute, para ter a importação dos dados.
 
@@ -78,7 +83,9 @@ geomorfologia <- read_excel("../data/geomorfologia.xlsx")
 knitr::include_graphics("../img/import_4.png")
 ```
 
-## Organização
+---
+
+### Organização
 
 Uma vez que os dados estão no R, a próxima etapa é organizá-los, ou seja, armazená-los de uma forma consistente que combine a semântica da base de dados com a maneira com a qual eles são armazenados. 
 
@@ -88,23 +95,32 @@ Cada coluna é uma variável e cada linha é uma observação.
 knitr::include_graphics("../img/dados.png")
 ```
 
+---
+
  > Observação: O R, como a maioria dos softwares estatísticos, utiliza o **ponto** como **separador decimal**, ou seja, como o símbolo usado para separar a parte inteira da parte complementar não inteira da representação decimal do numeral de um real (ponto flutuante).
  
- > Portanto, aconselhamos você a padronizar o separador decimal do seu computador. Para isso sigua os passos abaixo:
+Portanto, aconselhamos a padronizar o separador decimal do seu computador. Para isso sigua os passos abaixo:
 
 
 ```{r echo=FALSE, fig.cap="Acesse o PAINEL DE CONTROLE, na opção REGIÃO clique em  CONFIGURAÇÕES ADICIONAIS... e modifique o SÍBOLO DECIMAL para PONTO e o SÍMBOLO DE AGRUPAMENTO DE DÍGITO para VÍRGULA.",fig.align='center',out.width = "600px"}
 knitr::include_graphics("../img/meuGif_2.gif")
 ```
 
+---
+
 Vamos conhecer a estrutura do nosso banco de dados, a partir da função `str`. 
+
+Podemos identificar que os dados são compostos por 106 linhas e 22 colunas. As duas primeiras colunas são do tipo texto (**chr** - *character*) e as demais colunas são numéricas (**num** - *numeric*).
+
 ```{r}
 str(dados)
 ```
 
-Podemos identificar que os dados são compostos por 106 linhas e 22 colunas. As duas primeiras colunas são do tipo texto (**chr** - *character*) e as demais colunas são numéricas (**num** - *numeric*).
 
-## Transformação dos dados
+---
+
+
+### Transformação dos dados
 
 O termo transformação significa literalmente recortar o banco de dados, assim podemos focar nas observações de interesse. Criar novas variáveis em função das existentes e calcular, por exemplo, um resumo estatístico desse conjunto de interesse. 
 
@@ -121,6 +137,8 @@ da <- dados[f,]
 str(da)
 ```
 
+---
+
 Vamos continuar o processo de filtragem e selecionar somente as colunas **SUP**, **ARGILA**, **SILTE** e **T**.
 
 ```{r}
@@ -136,6 +154,8 @@ da$Log_T <- log10(da$T)
 str(da)
 ```
 
+---
+
 Agora vamos gerar um resumo estatístico para esses dados. A primeira coluna é do tipo texto, então, deve ser retirada do banco de dados auxiliar `da` antes de realizarmos os cálculos. Para isso, utilizamos o índice $-1$ na dimensão das colunas do objeto `da`, ou seja, estamos retirando a coluna 1 **SUP** de `da`.
 
 ```{r}
@@ -147,7 +167,12 @@ apply(da[,-1],2,mean)
 
 # Mediana
 apply(da[,-1],2,median)
+```
 
+
+---
+
+```{r}
 # Variância
 apply(da[,-1],2,var)
 
@@ -158,6 +183,8 @@ apply(da[,-1],2,sd)
 summary(da[,-1])
 ```
 
+---
+
 Agora podemos gerar o conhecimento, por meio da **Visualização** e **Modelagem**.
 
 Essas tem suas vantegens e desvantagens as quais são complementares, portanto, quaisquer análises reais farão muitas vezes iteraçoes entre elas.
@@ -166,16 +193,23 @@ Essas tem suas vantegens e desvantagens as quais são complementares, portanto, 
 knitr::include_graphics("../img/learnMath.jpeg")
 ```
 
-## Visualização
+---
+
+### Visualização
 
 Atividade fundamentalmente humana, uma boa visualização lhe mostrará coisas que não esperava, ou levantará novas questões sobre os dados. Além disso, pode mostrar também que você esta fazendo a pergunta errada, ou que precisa coletar dados diferentes. Visualizações podem surpreender o analista de dados, mas não escalam particularmente bem, por que requerem um humano para interpretá-las.
 
+---
+
+class: middle, center
 
 ```{r}
 plot(da$ARGILA,da$T)
 ```
 
-## Modelação
+---
+
+### Modelação
 
 *Modelo* são ferramentas complementares da visualização. Uma vez que você tenha feito perguntas suficientemente precisas, poderá usar um modelo para respondê-las. Modelos são fundamentalmente matemáticos ou computacionais, então, geralmente escalam muito bem. Porém, cada modelo faz suposições e, por sua própria natureza, não podem questionar suas própria hipóteses, ou seja, um modelo não pode nos surpreender.
 
@@ -186,12 +220,18 @@ summary.lm(mod)
 abline(mod)
 ```
 
+---
+
 
 ### Exemplo de Análise multivariada (PCA)
 
 ```{r echo=FALSE, fig.cap="Classificação das técnicas multivariadas (Dependências e Interdependência).", fig.align='center', out.width = "400px"}
 knitr::include_graphics("../img/multivariada.png")
 ```
+
+
+---
+
 Carregando alguns pacotes
 
 ```{r}
@@ -199,6 +239,7 @@ library(vegan)
 library(corrplot)
 ```
 
+---
 Matriz de Correlação
 
 ```{r}
@@ -207,20 +248,29 @@ matriz_correlacao <- cor(geomorfo_num)
 corrplot(matriz_correlacao)
 ```
 
+---
+
 ```{r}
 corrplot(matriz_correlacao, method = "ellipse")
 ```
+
+---
 
 ```{r}
 corrplot.mixed(matriz_correlacao, lower.col = "black", upper = "ellipse")
 ```
 
+
+---
 Notoriamente existem muitas variáveis, vamos filtar e transformas
 
 ```{r}
 str(geomorfo_num)
 geomorfo_num$AREIA <- geomorfo_num$AG + geomorfo_num$AM + geomorfo_num$AF + geomorfo_num$AMF
 ```
+
+---
+
 Vamos selecionar alguams variáveis
 
 ```{r}
@@ -229,6 +279,8 @@ matriz_correlacao_selecionada <- cor(geomorfo_nun_selecionada)
 corrplot.mixed(matriz_correlacao_selecionada,lower.col = "black", upper = "ellipse")
 ```
 
+---
+
 Para a análise de componente principais, primeiramente devemos padronizar o banco de dados, assim utilizamos o argumento `scale = TRUE` da funçaõ `prcompr`.
 
 ```{r}
@@ -236,6 +288,8 @@ da <- decostand(geomorfo_nun_selecionada,method = "standardize",na.rm = TRUE)
 pca <- prcomp(geomorfo_nun_selecionada,scale. = TRUE)
 summary(pca)
 ```
+
+---
 
 Extraindo os autovalores
 
@@ -257,17 +311,19 @@ cumsum(ve)
 ```
 
 
-```{r}
+```{r, echo=FALSE}
 # pca # Autovalores das variáveis
 # pca$x # coordenadas dos acessos
 ```
 
-
+---
 Correlações entre cada variável - poder discriminante
 ```{r}
 mcor<-cor(da, pca$x) 
 corrplot(mcor)
 ```
+
+---
 
 Screeplot, para verificar os PC maiores que a Unidade, de acordo com Kaiser, valores maiores que 1
 
@@ -279,11 +335,13 @@ barplot(eig,
     ylab="Inertia",xlab="Principal Component",cex.lab=1.2
     ,main="Sreeplot")
 abline(h=1,lty=2)
+grupos <- geomorfologia$SUP
 ```
+
+---
 
 Construção do Biplot e sua tabela
 ```{r}
-grupos <- geomorfologia$SUP
 biplot(rda(da),pch=2)
 ordihull(rda(da),
          group = grupos,
@@ -291,8 +349,10 @@ ordihull(rda(da),
 
 ```
 
+---
+
 Construção do biplot usando as funções básicas
-```{r}
+```{r, plot_1, eval=FALSE}
 pc1V<-cor(da,pca$x)[,1]/sd(cor(da,pca$x)[,1])
 pc2V<-cor(da,pca$x)[,2]/sd(cor(da,pca$x)[,2])
 pc1c<-pca$x[,1]/sd(pca$x[,1])
@@ -319,6 +379,15 @@ for(i in 1:length(nlv)){
    text(pc1c[ff],pc2c[ff],grupos[ff],cex=.8,col=i)}
 ```
 
+---
+
+### Biplot
+
+```{r,plot_1, echo=FALSE}
+```
+
+---
+
 Tabela do Biplot com as correlações com as PCs e seus respectivos autovetores
 ```{r}
 ck<-sum(pca$sdev^2>=1)
@@ -326,29 +395,40 @@ tabelapca<-vector()
 for( l in 1:ck) tabelapca<-cbind(tabelapca,mcor[,l])#,pca$rotation[,l])
 colnames(tabelapca)<-paste(rep(c("PC"),ck),1:ck,sep="")
 pcat<-round(tabelapca,3)
-summary(pcat)
 tabelapca<-tabelapca[order(abs(tabelapca[,1])),]
 tabelapca
 ```
 
+---
+
 Uma opção à tabela resumo
 
-```{r}
+```{r,plot_2, eval=FALSE}
 library(plotrix)
-pyramid.plot(abs(tabelapca[,1]),abs(tabelapca[,2]),
-             labels = names(tabelapca[,1]),
-             unit="Correlation",gap=.1,raxlab=c(0,0.25,.5,.75,1),
-             top.labels = c("PC1 (33.85%)", "Variable", "PC2 (25.16%)"),
-laxlab=c(0,0.25,.5,.75,1),
-             lxcol=c("darkgray","white","darkgray","darkgray","darkgray",
-             "darkgray"),rxcol=c("white","white","darkgray","darkgray",
-             "white","white"))
-text(-1*abs(tabelapca[,1]),1:6,round(tabelapca[,1],2))
-text(abs(tabelapca[,2]+c(0,0,0,0,-.04,0)),1:6,round(tabelapca[,2],2))
-box()
+{
+  pyramid.plot(abs(tabelapca[,1]),abs(tabelapca[,2]),
+               labels = names(tabelapca[,1]),
+               unit="Correlation",gap=.1,raxlab=c(0,0.25,.5,.75,1),
+               top.labels = c("PC1 (33.85%)", "Variable", "PC2 (25.16%)"),
+               laxlab=c(0,0.25,.5,.75,1),
+               lxcol=c("darkgray","white","darkgray","darkgray","darkgray",
+                       "darkgray"),
+               rxcol=c("white","white","darkgray","darkgray",
+                       "white","white"))
+  text(-1*abs(tabelapca[,1]),1:6,round(tabelapca[,1],2))
+  text(abs(tabelapca[,2]+c(0,0,0,0,-.04,0)),1:6,round(tabelapca[,2],2))
+  box()
+}
 ```
 
-## Comunicação
+---
+
+```{r, plot_2, echo=FALSE}
+```
+
+
+---
+### Comunicação
 
 É a última etapa do Data Science, a mais importante. Não importa quão bem seus modelos e visualizações o levaram a entender os dados, a menos que você também consiga comunicar seus resultados para outras pessoas.
 
@@ -358,7 +438,8 @@ Uma dica importante, é estudar **RMarkdown**! Ótima linguagem de marcação de
 knitr::include_graphics("../img/coverRMD.png")
 ```
 
-## Programação
+---
+### Programação
 
 Permeia todas as etapas da Ciência dos Dados.
 
@@ -379,6 +460,8 @@ R é um ambiente e linguagem de programação de código aberto para computaçã
     + Você pode corrigir problemas.
 
     + Você pode desenvolver suas próprias ferramentas.
+
+---
 
   * Linguagem orientada a objetos R  (Ross Ihaka e Robert Gentleman).
 
