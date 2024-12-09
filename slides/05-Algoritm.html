@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Algoritmos</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Alan R Panosso alan.panosso@unesp.br" />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Algoritmos
+]
+.subtitle[
+## Estatística e Experimentação no Ambiente R
+]
+.author[
+### Alan R Panosso <a href="mailto:alan.panosso@unesp.br" class="email">alan.panosso@unesp.br</a>
+]
+.institute[
+### Pós-graduação Agronomia (Ciência do Solo)
+]
+.date[
+### 09 a 20 de dezembro de 2024
+]
+
+---
+
+
+### Algoritmos
+
+
+**Definição**: Sequência lógica e não ambígua de instruções que levam à solução de um problema num tempo finito.
+
+  -Sequência lógica: As instruções devem ser definidas em uma ordem correta.  
+  -Não ambígua: A sequência lógica e as instruções não  devem dar margem à dupla interpretação.  
+  -Solução de um problema: A sequência lógica deve resolver exatamente (nem mais e nem menos) o problema identificado.  
+  -Tempo finito: A sequência lógica não deve possuir iterações infinitas.  
+  -Um algoritmo é **"uma solução"** e não **"a solução"** de um problema.  
+  -Um problema pode ser resolvido por mais de um algoritmo! **SEMPRE**.  
+  -Tarefas que possuem "padrão de comportamento" podem ser descritas por um algoritmo.  
+  
+
+Entender algoritmos é fundamental para desenvolver o raciocínio lógico e conceber uma solução a um dado problema, independente de uma linguagem de programação. (Ex: Fortran, Pascal, C e Python, R). 
+
+A partir do algoritmo desenvolvido, fica mais fácil implementar o respectivo programa.
+
+---
+
+### Estruturas de Controle
+
+Na criação de algoritmos, utilizamos os conceitos de bloco lógico, entrada e saída de dados, variáveis, constantes, atribuições, expressões lógicas, relacionais e aritméticas, bem como comandos que traduzam esses conceitos de forma a representar o conjunto de ações. 
+
+Para que esse conjunto de ações se torne viável, deve existir uma perfeita relação lógica intrínseca ao modo pelo qual essas ações são executadas, ao modo pelo qual é regido o fluxo de execução do algoritmo.
+
+Por meio das estrutura básicas de controle do fluxo de execução – sequencial, seleção, repetição e da combinação delas – poderemos criar algoritmos para solucionar vários problemas.
+
+---
+### Estruturas básicas de um algoritmo**: 
+
+#### Sequêncial 
+
+Representa o **Início/Fim**, e define uma estrutura onde as instruções serão executadas na ordem que aparecem.
+
+Corresponde ao fato de que o conjunto de ações primitivas será executado em uma sequência linear de cima para baixo da esquerda para a direita. Para exemplificarmos, vamos resolver o seguinte exercício.  
+
+**Exemplo**: Vamos construir um algoritmo que calcule a média aritmética entre quatro notas bimestrais fornecidas:
+
+
+```r
+# Entrada 
+n1 &lt;- 4
+n2 &lt;- 5
+n3 &lt;- 6
+n4 &lt;- 7
+# Processamento
+media &lt;- (n1+n2+n3+n4) / 4 
+# Saída
+media
+```
+
+```
+## [1] 5.5
+```
+
+---
+
+#### Seleção
+
+**a) Se-Então/Senão**
+Define uma estrutura condicional que, dada a sua avaliação (Verdadeira ou Falsa), determina qual "caminho" do algoritmo será executado.
+
+
+Permite a escolha de um grupo de ações (bloco) a ser executado quando determinadas condições, representadas por expressões lógicas e/ou relacionais, são satisfeitas ou não. Os tipo de seleção apresentados serão: Simples, Composta e Encadeada.
+
+**Exemplo - Seleção Simples**: Classifique um valor qualquer fornecido `X`, se é maior que zero.
+
+Quando precisamos testar uma certa condição antes de executar uma ação.
+
+
+```r
+X &lt;- 7
+if(X &gt; 0)
+  { # Início do bloco Verdadeiro
+  print("Valor maior que zero")
+  } # Final do bloco Verdadeiro
+```
+
+```
+## [1] "Valor maior que zero"
+```
+
+---
+
+**OBS**: Quando houver somente uma ação primitiva, a estrutura pode ser: 
+
+```r
+X &lt;- 7
+if(X &gt; 0)  print("Valor maior que zero")
+```
+
+```
+## [1] "Valor maior que zero"
+```
+
+Contudo, se atribuírmos um valor negativo a `X`, esse algoritimo não apresentará retorno.
+
+
+```r
+X &lt;- -5
+if(X &gt; 0)  print("Valor maior que zero")
+```
+
+**Exemplo - Seleção Composta**: Classifique um valor qualquer fornecido `X`, se é maior que zero, ou menor ou igual a zero.
+
+Utilizadas em situações em que duas alternativas dependem de uma mesma condição: uma da condição VERDADEIRA, e outra da condição FALSA.
+
+
+
+```r
+X &lt;- -0.8987
+if(X &gt; 0){ 
+  print("Valor maior que zero")
+  }else{ # Início do bloco Falso
+  print("Valor menor ou igual a zero") 
+  } # Fim do bloco Falso
+```
+
+```
+## [1] "Valor menor ou igual a zero"
+```
+
+---
+
+**Exemplo - Seleção Encadeada**: Classifique um valor qualquer fornecido `X`, se é maior que zero, menor do que zero ou igual a zero.
+
+É o agrupamento de várias seleções, ocorre quanto uma determinada ação, ou bloco deve ser executado se um grande conjunto de possibilidades ou combinações de situações for satisfeito.
+
+
+```r
+X &lt;- 0.1
+if(X &gt; 0){ 
+  print("Valor maior que zero")
+}else{ 
+      if(X&lt; 0 ){
+        print("Valor menor que zero")
+      }else{
+        print("Valor igual a zero")
+      }
+}
+```
+
+```
+## [1] "Valor maior que zero"
+```
+
+Observe que as etruturas acima apresentadas são funcionais para classificação de um único valor. Contudo para a classificação de vários valores em um vetor, recomenda-se o uso da função `if_else` do pacote `dplyr` disponível no `tidyverse` ou a função `ifelse` do pacote `base` do R.
+
+
+```r
+library(tidyverse)
+numeros &lt;- c(-0.8, 1, 5, 0, -4)
+if_else(numeros&lt;0,"Negativo",if_else(numeros==0,"Nulo","Positivo"))
+```
+
+```
+## [1] "Negativo" "Positivo" "Positivo" "Nulo"     "Negativo"
+```
+
+```r
+ifelse(numeros&lt;0,"Negativo",if_else(numeros==0,"Nulo","Positivo"))
+```
+
+```
+## [1] "Negativo" "Positivo" "Positivo" "Nulo"     "Negativo"
+```
+
+---
+
+**b) Selecione caso**
+
+Muitas vezes nos deparamos com situações onde são necessários duas ou mais operações condicionais para classificação. Nessa situações poderemos utilizar a estrutura **Selecione caso**, que no R pode ser acessada com a função `case_when` (do pacote `dplyr`). Essa função é útil para vetorizar instruções condicionais. Isso é semelhante a `if_else` mas pode gerar qualquer número de valores, em vez de apenas `TRUE` ou `FALSE`. Aqui está um exemplo que retorna o dia da semana em função do número de 1 a 7, onde qualquer valor fora desse intervalo seja classificado como `número inválido`. 
+
+
+```r
+dia &lt;- c(0,1,2,3,4,5,6,7,8)
+case_when(
+  dia == 1 ~ "Domingo",
+  dia == 2 ~ "Segunda-feira",
+  dia == 3 ~ "Terça-feira",
+  dia == 4 ~ "Quarta-feira",
+  dia == 5 ~ "Quinta-feira",
+  dia == 6 ~ "Sexta-feira",
+  dia == 7 ~ "Sábado",
+  TRUE ~ "número inválido"
+  )
+```
+
+```
+## [1] "número inválido" "Domingo"         "Segunda-feira"  
+## [4] "Terça-feira"     "Quarta-feira"    "Quinta-feira"   
+## [7] "Sexta-feira"     "Sábado"          "número inválido"
+```
+
+---
+#### Repetição 
+
+
+Define uma estrutura de iteração condicional (V ou F) ou contada (pré-definida) de instruções.
+
+
+É uma estrutura da controle do fluxo de execução que permite repetir diversas vezes um mesmo trecho do algoritmo, porém, sempre verificando **ANTES** de cada execução se é 'permitido' executar o mesmo trecho. 
+
+
+**a) Repetição com teste no Início**
+
+O **Enquanto** (`while`) permite que um determinado comando (ou bloco) seja repetido **enquanto** uma determinada &lt;condição&gt; for *VERDADEIRA*.
+
+Muitas vezes precisamos estabelecer um modo de contagem (contador), ou seja, uma variável ($i$ por exemplo) com um dado valor inicial que é incrementado a cada repetição. 
+
+Quando o resultado da &lt;condição&gt; for *FALSO* o comando de repetição é abandonado. Se na primeira vez o resultado for FALSO, os comandos **NÃO SÃO EXECUTADOS**.
+
+---
+
+**Exemplo**: Imprima os números menores ou iguais a `\(10\)`.
+
+
+```r
+i=1
+while(i&lt;=10){
+  print(i)
+  i=i+1
+}
+```
+
+```
+## [1] 1
+## [1] 2
+## [1] 3
+## [1] 4
+## [1] 5
+## [1] 6
+## [1] 7
+## [1] 8
+## [1] 9
+## [1] 10
+```
+
+---
+
+**b) Repetição com teste no Final**
+
+Uma das estruturas com teste no final é a **Repita** (`repeat`), que permite que um comando, ou bloco de comandos sejam executados enquanto uma determinada &lt;condição&gt; seja *FALSA*.
+
+Verificamos que, devido a sua sintaxe os comandos dentro do bloco **São Executados Pelo Menos Uma Vez**, independentemente da validade da condição. Isso ocorre pois a inspeção da &lt;condição&gt; ocorre no **FINAL** da estrutura.
+
+Quando o resultado da &lt;condição&gt; for *VERDADEIRO* o comando de repetição é abandonado. Entretanto, os comandos **SÃO EXECUTADOS PELO MENOS UMA VEZ**.
+
+---
+
+**Exemplo**: Imprima os números menores ou iguais a 10. Observe que utilizamos o comando `break` juntamente com o a estrutura `if`, ou seja, se a &lt;condição&gt; for verdadeira o `break` interromperá a iteração o controle flui para fora do laço.
+
+
+```r
+i=1
+repeat{
+  print(i)
+  i=i+1
+  if(i&gt;10) break
+}
+```
+
+```
+## [1] 1
+## [1] 2
+## [1] 3
+## [1] 4
+## [1] 5
+## [1] 6
+## [1] 7
+## [1] 8
+## [1] 9
+## [1] 10
+```
+
+---
+
+**c) Repetição com Variável de Controle**
+
+As estruturas `while` e `repeat` ocorrem em casos de difícil determinação do número de vezes que um comando, ou bloco, será executado. 
+
+A Estrutura **Para** (`for`) é diferente, já que sempre repete a execução do bloco um número pré-determinado de vezes, pois ela **não prevê uma condição** e possui **limites fixos**. 
+
+**Exemplo**: Imprima os números menores ou iguais a 10.
+
+```r
+for(i in 1:10){
+  print(i)
+}
+```
+
+```
+## [1] 1
+## [1] 2
+## [1] 3
+## [1] 4
+## [1] 5
+## [1] 6
+## [1] 7
+## [1] 8
+## [1] 9
+## [1] 10
+```
+
+---
+
+**Exemplo:** Elabore um algoritmo que, utilizando uma das estruturas de repetição imprima a tabuada do número 5.
+
+
+```r
+for(i in 1:10){
+  print(paste("5 x",i,"=",i*5))
+}
+```
+
+```
+## [1] "5 x 1 = 5"
+## [1] "5 x 2 = 10"
+## [1] "5 x 3 = 15"
+## [1] "5 x 4 = 20"
+## [1] "5 x 5 = 25"
+## [1] "5 x 6 = 30"
+## [1] "5 x 7 = 35"
+## [1] "5 x 8 = 40"
+## [1] "5 x 9 = 45"
+## [1] "5 x 10 = 50"
+```
+
+---
+
+### Exercícios  
+
+**1)** Crie uma script/função que peça dois números e imprima o maior deles.
+
+**2)** Crie um script/função que peça um número e informe se o número é inteiro ou decimal.
+
+**3)** Crie um script/função que leia um número de 1 a 7 e exiba o dia correspondente da semana. (1- Domingo, 2- Segunda, ..., 7-Sábado.). Caso o usuário digitar um número diferente o programa deve escrever `Valor invalido`.
+
+**4)** Crie um script/função que verifique se uma letra digitada é vogal ou consoante.
+
+**5)** Crie um script/função que leia três números e mostre o maior e o menor deles.
+
+**6)** Elabore um algoritmo que, classifique um número `\(X\)`, fornecido pelo usuário, em par ou ímpar, utilize o operador `%` para o cálculo do resto da divisão.
+
+---
+
+### Exercícios  
+
+**7)** Construa um algoritmo sequencial que calcule as raízes de uma equação do 2º grau ($ax^2 + bx + c$), sendo os valores de `\(a\)`, `\(b\)` e `\(c\)` devem ser fornecidos pelo usuário. Considere:
+
+$$
+\Delta = b^2-4 a  c
+$$
+
+se `\(\Delta &gt; 0\)`
+
+$$
+x_1 = \frac{-b+\sqrt{\Delta} }{2a} \\
+x_2 = \frac{-b-\sqrt{\Delta} }{2a}
+$$
+se `\(\Delta = 0\)`
+
+$$
+x= \frac{-b}{2a}
+$$
+
+se `\(\Delta &lt; 0\)`
+
+*As raízes são imaginárias*
+
+---
+
+### Exercícios  
+
+**8)** Faça um programa que imprima uma frase `\(n\)` vezes na tela do computador, `\(n\)` deve ser um número fornecido pelo usuário.
+
+**9)** Faça um programa que imprima na tela os números de 1 a 20.
+
+**10)** Faça um programa para obter as sequências de 0 a 25 com passo igual a 2.
+
+**11)** Escreva um programa no qual o usuário digite dois números e o programa deve apresentar todos os números inteiros entre esses dois números. Se os números forem iguais, o programa deve exibir uma mensagem dizendo para o usuário digitar dois números inteiros diferentes.
+
+**12)** Elabore um algoritmo que calcule e escreva o valor S, em que:
+
+$$
+S = 1 - \frac{2}{4} + \frac{3}{9} - \frac{4}{16} + \cdots - \frac{10}{100} = 0,6456349
+$$
+
+**13)** Construa um algoritmo que verifique se o número fornecido pelo usuário (inteiro maior que 1) é primo ou não (números primos são os números naturais que têm apenas dois divisores o 1 e ele mesmo, exemplo (2, 3, 5, 7, 11, 13, 17...).
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

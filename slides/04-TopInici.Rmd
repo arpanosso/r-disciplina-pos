@@ -1,24 +1,39 @@
-# Tópicos iniciais  
+---
+title: "Tópicos iniciais em Programação"
+subtitle: "Estatística e Experimentação no Ambiente R"
+author: "Alan R Panosso <alan.panosso@unesp.br>"
+institute: "Pós-graduação Agronomia (Ciência do Solo)"
+date: "09 a 20 de dezembro de 2024"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
 
-## Identificadores
+
+### Identificadores
 
 São nomes únicos definidos pelos programadores para identificar/distinguir os elementos de um programa.
 
-## Palavras Reservadas
+#### Palavras Reservadas
 
 São instruções primitivas que têm significados pré-determinados e fazem parte da estrutura de qualquer linguagem de programação.
 
-## Regras para os nomes de Identificadores  
+#### Regras para os nomes de Identificadores  
   *1) Devem começar por um caractere alfabético;   
   *2) Podem ser seguidos por mais caracteres alfabéticos e/ou numéricos;   
   *3) Não é permitido o uso de espaço em branco ou de caracteres especiais, como: @, #, &, ?, $ (exceto o _ e o .);  
   *4) Não poderá ser uma palavra reservada a uma instrução do algoritmo (if, else, for, while, entre outras);  
   *5) Devem ser significativos.
 
+---
+
 Geralmente, desejamos que os nomes dos objetos sejam descritivos, então precisaremos de uma convenção para várias palavras. 
 
 Recomendamos *snake_case*, onde você separa palavras minúsculas com _ .
-
 
 ```{r,eval=FALSE}
 eu_uso_snake_case
@@ -27,17 +42,19 @@ algumas.pessoas.usam.pontos
 E_algumasPoucas.Pessoas_RENUNCIAMconvenções
 ```
 
-## Tipos de dados
+---
+
+### Tipos de dados
 
 As fases de Entrada, Processamento e Saída podem manipular vários tipos primitivos de dados, a saber: 
 
-```{r echo=FALSE, fig.cap="Tipos primitivos de dados",fig.align='center',out.width = "600px"}
-knitr::include_graphics("img/tipo_dados.png")
+```{r echo=FALSE, fig.cap="Tipos primitivos de dados",fig.align='center',out.width = "500px"}
+knitr::include_graphics("../img/tipo_dados.png")
 ```
 
-Um Caractere **SEMPRE** deve estar entre aspas duplas **\"   \"** ou simples **'    '**. Por exemplo: `"A"`, `"Fone 3333-33333"`, `"1"`, `'3.1415'`, `'a mais bonita'`,etc. 
+Um Caractere **SEMPRE** deve estar entre aspas duplas **"   "** ou simples **'    '**. Por exemplo: `"A"`, `"Fone 3333-33333"`, `"1"`, `'3.1415'`, `'a mais bonita'`,etc. 
 
-```{r}
+```{r,eval=FALSE}
 " Olá, eu sou um texto."
 '1' # não pode ser feito cálculos
 3.14 # DOUBLE: valor real, de ponto flutuante.
@@ -48,7 +65,9 @@ TRUE # valor lógico verdadeiro
 FALSE # valor lógico falso
 ```
 
-## Atribuição
+---
+
+### Atribuição
 
 Serve para atribuir um valor a uma variável/objeto no R.
 
@@ -68,6 +87,8 @@ logico_2<-FALSE # valor lógico
 ```
 
 
+---
+
 ## Operadores
 
 **Aritméticos**: são as operações aritméticas básicas.
@@ -84,6 +105,8 @@ logico_2<-FALSE # valor lógico
 |`-`|Binário|Subtração|4|
 |`+`|Binário|Adição|4|
 
+---
+
 **Relacionais**: são operadores binários (de mesma prioridade) que somente retornam os valores lógicos Verdadeiro (**TRUE**) ou Falso (**FALSE**).
 
 |**Operador**|**Comparação**|
@@ -99,6 +122,8 @@ Estes somente são usados para efetuar comparações, as quais só podem ser fei
 
 O resultado de uma comparação é sempre um valor lógico V (TRUE) ou F(FALSE). 
 
+---
+
 **Lógicos** ou **Booleanos**: são usados para combinar expressões relacionais e lógicas. Também retornam como resultado valores lógicos Verdadeiro (**TRUE**) ou Falso (**FALSE**).
 
 |**Operador**|**Tipo**|**Operação**|**Prioridade**|
@@ -107,7 +132,10 @@ O resultado de uma comparação é sempre um valor lógico V (TRUE) ou F(FALSE).
 |E (`&`)|Binário|Conjunção|2|
 |OU (`|`)|Binário|Disjunção|3|
 
-## Operação aritmética
+
+---
+### Operação aritmética
+
 $$
 \begin{aligned}
 & a) 1+7 = 8\\
@@ -124,7 +152,9 @@ $$
 10/3 
 ```
 
-## Funções matemáticas e trigonométricas 
+---
+
+### Funções matemáticas e trigonométricas 
 $$
 \begin{aligned}
 & a)\;\sqrt{9} = 3\\
@@ -143,7 +173,9 @@ exp(5)
 exp(1)
 ```
 
-## Operações Relacionais
+---
+
+### Operações Relacionais
 
 $$
 \begin{aligned}
@@ -156,14 +188,14 @@ $$
 
 ```{r}
 7 > 5 ; 4 != 8
-nome <- 'Alan'
-nome == 'Rodrigo'
-nome == "Alan"
+nome <- 'Nome'
+nome == 'Sobrenome'
+nome == "Nome"
 ```
 
+---
 
-
-## Operações Lógicas
+### Operações Lógicas
 
 $$
 \begin{aligned}
@@ -185,7 +217,9 @@ is.na(x)
 x[!is.na(x)]
 ```
 
-## Exercícios
+---
+
+### Exercícios
 
 Resolva as seguintes expressões:
 
@@ -200,31 +234,40 @@ $$
 \end{aligned}
 $$
 
-**Algumas funções do R**
+---
+
+### Algumas funções do R
 
 **Função**|**Significado/ação**
 :---|:---:
-`q()`|Sair do programa.
-`save.image()`|Salva o trabalho realizado.
-`ls()`|Lista todos os objetos da área de trabalho atual.
-`rm(x)`|Remove o objeto x.
-`rm(x,y)`|Remove os objetos x e y.
-`rm(list=ls(all=TRUE))`|Remove todos os objetos (R Console – Misc/Remover todos os objetos).
-`is.na(x)`|Verdadeiro se existir dado(s) ausente(s) no objeto x.
-`sqrt(x)`|raiz quadrada de x.
-`log(x,n)`|logaritmo de x na base n.
-`log(x)`|logaritmo neperiano de x.
-`log10(x)`|logaritmo decimal de x.
-`exp(x)`|antilogaritmo - ex. 
-`sin(x)`|seno de x (em radianos).
-`asin(x)`|arco-seno de x.
-`abs(x)`|modulo(x).
-`factorial(x)`|x !.
-`floor(x)`|maior inteiro < x.
-`ceiling(x)`|menor inteiro >x.
-`trunc(x)`|inteiro de x, descartando seus decimais.
-`round(x, digits=0)`|arredondando o valor x para um inteiro.
-`signif(x, digits=6)`|apresentar 6 dígitos significativos de x.
-`runif(n)`|gera n números aleatórios entre 0 e 1 a partir de uma distribuição uniforme.
-`c()`|concatenação, criação de vetores.
+`q()`|Sair do programa
+`save.image()`|Salva o trabalho realizado
+`ls()`|Lista todos os objetos da área de trabalho atual
+`rm(x)`|Remove o objeto x
+`rm(x,y)`|Remove os objetos x e y
+`rm(list=ls(all=TRUE))`|Remove todos os objetos (R Console – Misc/Remover todos os objetos)
+`is.na(x)`|Verdadeiro se existir dado(s) ausente(s) no objeto x
+`sqrt(x)`|raiz quadrada de x
+`log(x,n)`|logaritmo de x na base n
+`log(x)`|logaritmo neperiano de x
+`log10(x)`|logaritmo decimal de x
+`exp(x)`|antilogaritmo de x 
+
+---
+
+### Algumas funções do R
+
+**Função**|**Significado/ação**
+:---|:---:
+`sin(x)`|seno de x (em radianos)
+`asin(x)`|arco-seno de x
+`abs(x)`|modulo(x)
+`factorial(x)`|x !
+`floor(x)`|maior inteiro < x
+`ceiling(x)`|menor inteiro >x
+`trunc(x)`|inteiro de x, descartando seus decimais
+`round(x, digits=0)`|arredondando o valor x para um inteiro
+`signif(x, digits=6)`|apresentar 6 dígitos significativos de x
+`runif(n)`|gera n números aleatórios entre 0 e 1 a partir de uma distribuição uniforme
+`c()`|concatenação, criação de vetores
 
