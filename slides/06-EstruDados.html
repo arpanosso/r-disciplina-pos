@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Estrutura de dados</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Alan R Panosso alan.panosso@unesp.br" />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Estrutura de dados
+]
+.subtitle[
+## Estatística e Experimentação no Ambiente R
+]
+.author[
+### Alan R Panosso <a href="mailto:alan.panosso@unesp.br" class="email">alan.panosso@unesp.br</a>
+]
+.institute[
+### Pós-graduação Agronomia (Ciência do Solo)
+]
+.date[
+### 09 a 20 de dezembro de 2024
+]
+
+---
+
+
+### Estrutura de dados
+
+A  declaração  de  variáveis,  uma  a  uma,  é  suficiente  para  a  codificação  algorítmica  da solução  de  uma  ampla  gama  de  problemas, entretanto, esse tipo de declaração é insuficiente  para  resolver  um  grande número  de  problemas  computacionais.
+
+A quantidade de tipos de dados primitivos (caractere, real, inteiro, lógico) não é suficiente para representar toda e qualquer informação que possa surgir. 
+
+Assim, em muitas situações, esses recursos de representação são escassos, o que poderá ser suprimido se existisse mais tipos de dados ou, ainda melhor, se esses tipos pudessem ser construídos, à medida que fossem necessários.
+
+Portanto, vamos construir novos tipos de dados a partir da composição de tipos primitivos já estudados. 
+
+Esses novos tipos tem o formato denominado **estrutura de dados** que define como os tipos primitivos são organizados.
+
+---
+
+### Tipos básicos de estrutura no R:
+
+  * **Atomic vector**: homogêneo e unidimensional  
+  * **Factor**: homogêmeo e unidimensional
+  * **Matriz**: homogêneo e bidimensional  
+  * **Array**: homogêneo e multidimensional  
+  * **Lista**: heterogêneo  
+  * **Data frame**: heterogêneo  
+
+---
+#### Atomic vector
+
+Atomic vectors são a estrutura de objetos mais simples do R, caracterizados por "não terem dimensão". Podem ser  vistos  como  uma  caixa  com  um  rótulo ou  nome  colado  a  ela, que  num  dado  instante  guarda  um  determinado  objeto, essa  caixa  pode  ter  seu  conteúdo  alterado  diversas  vezes.
+
+Tipos de atomic vectos: lógico; inteiro; double; complexo; character.
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="../img/atomic_vector.png" alt="O objeto identificado como X possui um tipo numérico inteiro cujo valor é 5." width="500px" /&gt;
+&lt;p class="caption"&gt;O objeto identificado como X possui um tipo numérico inteiro cujo valor é 5.&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+
+```r
+(meu_inteiro &lt;- 5)
+```
+
+```
+## [1] 5
+```
+
+```r
+(meu_double &lt;- 8.50)
+```
+
+```
+## [1] 8.5
+```
+
+```r
+(meu_logico &lt;- TRUE)
+```
+
+```
+## [1] TRUE
+```
+
+```r
+(meu_char &lt;- "A")
+```
+
+```
+## [1] "A"
+```
+
+---
+
+De forma análoga, no conceito de estrutura de dados uma caixa poderá  comportar não apenas uma e somente uma informação, a caixa comportará um conjunto de dados, desde que previamente organizada, ou seja, dividida em compartimentos. A  função `c()`, o c é de *concatenate* utilizada para criação de um atomic vector com mais de um valor.
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="../img/atomic_vector2.png" alt="O objeto identificado como X possui um tipo numérico inteiro cujos valores são 5, 8, 0, 2, 1 e 9." width="600px" /&gt;
+&lt;p class="caption"&gt;O objeto identificado como X possui um tipo numérico inteiro cujos valores são 5, 8, 0, 2, 1 e 9.&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+```r
+x &lt;- c(5,8,0,2,1,9)
+y &lt;- c(0.5, 0.8, 1.5, 6.8)
+l &lt;- c(TRUE, FALSE, T, F)
+m &lt;- c("A", "mais", "formal")
+```
+
+
+As funções `class()`; `mode()` e `typeof()` auxiliam na determinação do tipo de objeto.
+
+
+```r
+class(x)
+```
+
+```
+## [1] "numeric"
+```
+
+```r
+mode(x)
+```
+
+```
+## [1] "numeric"
+```
+
+```r
+typeof(x)
+```
+
+```
+## [1] "double"
+```
+
+---
+**Observação:** Coerção ocorre quando dois tipos de objetos são inseridos uma estrutura homogênea (atomic vectors, arrays ou matrizes), o R converterá o objeto para o tipo mais flexível, na ordem:
+
+1-Lógico
+
+2-Inteiro
+
+3-Double
+
+4-Caracter
+
+
+```r
+teste_coercao &lt;- c(T,3,5.5,"bela")
+typeof(teste_coercao)
+```
+
+```
+## [1] "character"
+```
+
+Observe que no exemplo acima, o valor lógico `T` e os valores numéricos `\(3\)` e `\(5.5\)` sofreram coersão para o tipo **caracter**.
+
+---
+#### Factor
+
+**Factors** ou simplesmente **Fatores** são utilizados para armazernar dados categorizados e são caracterizados por conterem apenas valores pré-definidos, chamados de níveis do fator (`levels`) e se basearem num vetor de inteiros. Dentro do objeto, os levels são organizados em ordem alfabética.
+
+
+```r
+# Função factor
+trat &lt;- factor(c("T1","T1","T1","T2","T2","T2","T3","T3","T3"))
+trat
+```
+
+```
+## [1] T1 T1 T1 T2 T2 T2 T3 T3 T3
+## Levels: T1 T2 T3
+```
+
+```r
+# Função gl (Generate factors levels)
+TRAT &lt;- gl(3,3, labels = c("T1","T2","T3") )
+TRAT
+```
+
+```
+## [1] T1 T1 T1 T2 T2 T2 T3 T3 T3
+## Levels: T1 T2 T3
+```
+
+```r
+# Extraindo o níveis de um fator
+levels(trat)
+```
+
+```
+## [1] "T1" "T2" "T3"
+```
+
+---
+
+#### Matrizes e Arrays
+
+Matrizes e arrays são definidos usando as funções `matrix()` e `array()`, respectivamente. São multidimensionais. No caso da matriz esses objetos tem `\(2\)` dimensões e os compartimentos podem estar arranjados dessa maneira:
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="../img/matriz.png" alt="O objeto identificado como X possui um tipo numérico inteiro bidimensional organizado na forma matricial com 6 linhas e 6 colunas totalizando 36 elementos." width="600px" /&gt;
+&lt;p class="caption"&gt;O objeto identificado como X possui um tipo numérico inteiro bidimensional organizado na forma matricial com 6 linhas e 6 colunas totalizando 36 elementos.&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+No R dois argumentos são utilizados na função `matrix()` um para determinar o número de colunas e a forma com a qual será o preeenchimento dos elementos na matriz, por linha (`byrow=FALSE`, default) ou por coluna (`byrow=TRUE`). 
+
+Compare as duas matriz produzidas no exemplo abaixo.
+
+Preenchimento da matriz por coluna.
+
+
+```r
+mat1 &lt;- matrix(1:9, ncol = 3)
+mat1
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,]    1    4    7
+## [2,]    2    5    8
+## [3,]    3    6    9
+```
+
+Preenchimento da matriz por linha.
+
+
+```r
+mat2 &lt;- matrix(1:9, ncol = 3, byrow = TRUE)
+mat2
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    4    5    6
+## [3,]    7    8    9
+```
+
+---
+
+Arrays são objetos que podem conter dois ou mais dados bidimensionais. Por exemplo, em matrizes quadradas podem conter duas linhas e duas colunas e a dimensão pode ter cinco. 
+
+Os arrays podem armazenar os valores tendo apenas um tipo semelhante de tipos de dados. Os dados podem ser mais de uma dimensão, onde existem linhas e colunas e dimensões de algum comprimento.
+
+A função `array()` possui dois argumentos, `data` que receberá o vetor contendo os elementos e `dim` que receberá um vetor decrevendo o tamanho de cada dimensão.
+
+---
+
+Vamos criar um array com duas matrizes de 4 linhas e 3 colunas:
+
+
+```r
+meu_array &lt;- array(1:24, c(4,3,2))
+meu_array
+```
+
+```
+## , , 1
+## 
+##      [,1] [,2] [,3]
+## [1,]    1    5    9
+## [2,]    2    6   10
+## [3,]    3    7   11
+## [4,]    4    8   12
+## 
+## , , 2
+## 
+##      [,1] [,2] [,3]
+## [1,]   13   17   21
+## [2,]   14   18   22
+## [3,]   15   19   23
+## [4,]   16   20   24
+```
+
+---
+
+Os nomes das linhas, colunas e matrizes do array podem ser definidos a partir de uma lista aplicada ao argumento `dimnames` da função `array()`, como apresentado abaixo:
+
+
+```r
+linhas &lt;- c("Lin1", "Lin2", "Lin3", "Lin4")
+colunas &lt;- c("Col1","Col2","Col3")
+matrizes&lt;- c("Matriz1", "Matriz2")
+meu_array &lt;- array(1:24, c(4,3,2), 
+                 dimnames = list(linhas,colunas, matrizes))
+```
+
+---
+
+
+```r
+meu_array
+```
+
+```
+## , , Matriz1
+## 
+##      Col1 Col2 Col3
+## Lin1    1    5    9
+## Lin2    2    6   10
+## Lin3    3    7   11
+## Lin4    4    8   12
+## 
+## , , Matriz2
+## 
+##      Col1 Col2 Col3
+## Lin1   13   17   21
+## Lin2   14   18   22
+## Lin3   15   19   23
+## Lin4   16   20   24
+```
+
+---
+As funções `length()`, `dim()`, `nrow()` e `ncol()` são usadas para determinar o comprimento de cada dimensão de um objeto. Observe que *atomic vector* e *factor* são estruturas unidimensionais, assim, somente a função `length()` retornará o número de elementos do objeto, e as demais função retornarão valor nulo *NULL*. 
+
+
+```r
+# Array
+length(meu_array)
+```
+
+```
+## [1] 24
+```
+
+```r
+dim(meu_array)
+```
+
+```
+## [1] 4 3 2
+```
+
+```r
+nrow(meu_array)
+```
+
+```
+## [1] 4
+```
+
+```r
+ncol(meu_array)
+```
+
+```
+## [1] 3
+```
+
+---
+Todos os objetos apresentados até agora (*atomic vector, factor, matrix* e *arrays*) podem ser classificados como estruturas de dados **HOMOGÊNEA**, pois são compostas por variáveis do mesmo tipo primitivo.
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="../img/est_homo.png" alt="Estrutura de dados Homogênea é uma coleção de variáveis de mesmo tipo, acessíveis com um único nome e armazenados contiguamente (um após o outro) na memória." width="400px" /&gt;
+&lt;p class="caption"&gt;Estrutura de dados Homogênea é uma coleção de variáveis de mesmo tipo, acessíveis com um único nome e armazenados contiguamente (um após o outro) na memória.&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+Se um conjunto homogêneo de dados é composto por variáveis do mesmo tipo, um conjunto **HETEROGÊNEO** de dados é composto por elementos que não são do mesmo tipo primitivo. 
+
+No R temos as **listas** e os **data frames**.
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="../img/est_hetero.png" alt="As estruturas heterogêneas constituem um recurso importante para a organização dos dados utilizados devido à possibilidade de tratar um grupo de valores como uma única variável, similar às estruturas homogêneas." width="400px" /&gt;
+&lt;p class="caption"&gt;As estruturas heterogêneas constituem um recurso importante para a organização dos dados utilizados devido à possibilidade de tratar um grupo de valores como uma única variável, similar às estruturas homogêneas.&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+#### Listas
+
+São estrutras de dados heterogêneas, ou seja, podem ser formadas por vetores de **diferentes tipos de dados** e de **diferentes comprimentos**. Em R são frequentemente utilizadas para a passagem de vários argumentos de controle dentro de uma função.
+
+Começaremos criando uma lista que consiste em três partes: 4 informações de caracteres em um vetor denominado **a**, 8 informações numéricas em um vetor denominado **b** e 3 informações lógicas em um vetor denominado **c**:
+
+
+```r
+a&lt;-c("a","b","c","d")
+b&lt;-c(1,2,3,4,4,3,2,1)
+c&lt;-c(T,T,F)
+```
+
+---
+
+Agora vamos utilizar a função `list()` para agrupar esses objetos.
+
+
+```r
+minha_lista &lt;- list(a,b,c)
+minha_lista
+```
+
+```
+## [[1]]
+## [1] "a" "b" "c" "d"
+## 
+## [[2]]
+## [1] 1 2 3 4 4 3 2 1
+## 
+## [[3]]
+## [1]  TRUE  TRUE FALSE
+```
+
+---
+
+As funções `typeof()` e `class` retornam *list* e a função `length` retorna o número de *atomic vectors* utilizados na criação da lista. Funções como `dim()`, `nrow()` e `ncol()` retornarão *NULL*.
+
+
+```r
+typeof(minha_lista)
+```
+
+```
+## [1] "list"
+```
+
+```r
+class(minha_lista)
+```
+
+```
+## [1] "list"
+```
+
+```r
+length(minha_lista)
+```
+
+```
+## [1] 3
+```
+
+---
+
+Para conseguirmos o número de elementos em cada objeto dentro da lista, poderemos utlizar a função `lapply()` junto com a função `length()`. 
+
+
+```r
+lapply(minha_lista,length)
+```
+
+```
+## [[1]]
+## [1] 4
+## 
+## [[2]]
+## [1] 8
+## 
+## [[3]]
+## [1] 3
+```
+
+---
+
+A função `lapply`  pode ser utilizada juntamente com `typeof` e/ou `class`.
+
+
+```r
+lapply(minha_lista,typeof)
+```
+
+```
+## [[1]]
+## [1] "character"
+## 
+## [[2]]
+## [1] "double"
+## 
+## [[3]]
+## [1] "logical"
+```
+
+---
+
+#### Data frames
+
+Semelhantes às listas, os *data frames* São estrutras de dados heterogêneas, que podem ser formadas por vetores de **diferentes tipos** de dados, contudo,  **todos os vetores têm o mesmo comprimento**. São definidos usando a função `data.frame()`.
+
+Um data frame é um objeto com linhas e colunas (parecido com a matriz). As linhas de um data frame contêm diferentes observações do estudo em questão, denominadas **registros**. 
+
+As colunas, por sua vez, contêm os valores de diferentes variáveis. Os valores no corpo de uma matriz podem ser apenas números; aqueles em um data.frame também podem ser números, mas também podem ser texto (por exemplo, os nomes dos níveis de fator para variáveis categóricas, como *masculino* ou *feminino* em uma variável chamada gênero), eles podem ser datas do calendário (por exemplo, *05/01/21*) , ou podem ser variáveis lógicas (*TRUE* ou *FALSE*).
+
+A etapa mais importante do Data Science é obter o data frame absolutamente correto. 
+
+---
+A expectativa é que você tenha usado uma planilha eletrônica, como o Excel, para inserir e editar os dados e o que requer alguma prática é aprender exatamente como colocar seus números na planilha. 
+
+Existem inúmeras maneiras de fazer errado, mas apenas uma maneira de fazer certo. E esta não é a maneira que a maioria das pessoas acha intuitivamente a mais óbvia. O principal é o seguinte: **todos os valores da mesma variável devem estar na mesma coluna**.
+
+Se você fez um experimento com três tratamentos (controle, pré-aquecido e pré-resfriado) e quatro medições por tratamento, pode parecer uma boa ideia criar a planilha como esta:
+ 
+|**controle**|**pré-aquecido**|**pré-resfriado**
+|:---|:---:|:---:
+|6.1|6.3|7.1
+|5.9|6.2|8.2
+|5.8|5.8|7.3
+|5.4|6.3|6.9
+
+No entanto, este não é um data frame, pois os valores da variável resposta aparecem em três colunas diferentes, em vez de todos na mesma coluna. 
+
+---
+
+A forma correta de inserir esses dados é ter duas colunas: uma para a variável **resposta** e outra para os **níveis do fator** experimental denominada Tratamento (controle, pré-aquecido e pré-resfriado). 
+
+Aqui estão os mesmos dados, inseridos corretamente como um data.frame:
+
+|**Resposta**|**Tratamento**
+|:---|:---:
+|6.1|controle
+|5.9|controle
+|5.8|controle
+|5.4|controle
+|6.3|pré-aquecido
+|6.2|pré-aquecido
+|5.8|pré-aquecido
+|6.3|pré-aquecido
+|7.1|pré-resfriado
+|8.2|pré-resfriado
+|7.3|pré-resfriado
+|6.9|pré-resfriado
+
+---
+
+Para construir esse data frame, primeiramente vamos criar os distintos vetores, numérico e fator.
+
+```r
+resposta &lt;- c(6.1,5.9,5.8,5.4,6.3,6.2,5.8,6.3,7.1,8.2,7.3,6.9)
+tratamento &lt;- gl(3,4,
+     labels = c("controle","pré-aquecido","pré-resfriado") )
+```
+
+Agrora vamos agrupar esses vetores em um data frame denomidao `dados`.
+
+```r
+dados &lt;- data.frame(resposta, tratamento)
+dados
+```
+
+```
+##    resposta    tratamento
+## 1       6.1      controle
+## 2       5.9      controle
+## 3       5.8      controle
+## 4       5.4      controle
+## 5       6.3  pré-aquecido
+## 6       6.2  pré-aquecido
+## 7       5.8  pré-aquecido
+## 8       6.3  pré-aquecido
+## 9       7.1 pré-resfriado
+## 10      8.2 pré-resfriado
+## 11      7.3 pré-resfriado
+## 12      6.9 pré-resfriado
+```
+
+---
+
+Agora vamos extrair algumas informações a respeito desse data frame:
+
+Utilize a função `length()` para retornar o número de vetores (colunas) utilizados para criação do data frame.
+
+```r
+length(dados)
+```
+
+```
+## [1] 2
+```
+
+A função `dim()` retornará o número de linhas e o número de colunas do objeto, em analogia, poder-se-ia utilizar as funções `nrow()` e `ncol()`.
+
+```r
+dim(dados)
+```
+
+```
+## [1] 12  2
+```
+
+```r
+nrow(dados)
+```
+
+```
+## [1] 12
+```
+
+```r
+ncol(dados)
+```
+
+```
+## [1] 2
+```
+
+---
+
+A função `glimpse()` do pacote `dplyr` fornece um resumo rápido a erspeito do data frame, semelhante à função, já estudada `str()`:
+
+Observe que vamos chamar a função `glimpse` utilizado o `::` definindo anteriormente o nome do pacote `dplyr` na qual ela se encontra, sem a necessidade prévia de carregarmos esse pacote no ambiente de trabalho do R.
+
+
+```r
+dplyr::glimpse(dados)
+```
+
+```
+## Rows: 12
+## Columns: 2
+## $ resposta   &lt;dbl&gt; 6.1, 5.9, 5.8, 5.4, 6.3, 6.2, 5.8, 6.3, 7.1, 8.2, 7.3…
+## $ tratamento &lt;fct&gt; controle, controle, controle, controle, pré-aquecido,…
+```
+
+---
+
+A função `names()` retorna o nome das colunas (vetores) de um data frame.
+
+```r
+names(dados)
+```
+
+```
+## [1] "resposta"   "tratamento"
+```
+
+A função `names()` também pode ser utilizada para atribuir/modificar os nomes das colunas do data frame.
+
+```r
+names(dados) &lt;- c("Altura_cm", "Método")
+head(dados)
+```
+
+```
+##   Altura_cm       Método
+## 1       6.1     controle
+## 2       5.9     controle
+## 3       5.8     controle
+## 4       5.4     controle
+## 5       6.3 pré-aquecido
+## 6       6.2 pré-aquecido
+```
+
+
+---
+O ponto principal sobre como trabalhar efetivamente com data frames é entendermos o uso de subscritos (ou indexação). No R, os subscritos aparecem entre colchetes `[ , ]`. 
+
+Lembre-se que um data frame é um objeto bidimensional, compreendendo linhas e colunas. As linhas são referenciadas pelo primeiro subscrito (à esquerda da vírgula) , as colunas pelo segundo subscrito (à direita da vírgula). Portanto, para extrairmos a segunda observação da variável resposta `Altura_cm` usamos: 
+
+```r
+dados[2,1]
+```
+
+```
+## [1] 5.9
+```
+
+---
+
+Observe que o retorno foi um *atomic vector* (vetor).
+
+Para extrairmos um subconjuto desse data.frame, composto somente pelos valores de altura referentes ao método `pré-aquecido` (linhas 5 a 8), vamos utilizar os `:`, deixando o índice das colunas em branco na indexação. 
+
+```r
+dados[5:8,]
+```
+
+```
+##   Altura_cm       Método
+## 5       6.3 pré-aquecido
+## 6       6.2 pré-aquecido
+## 7       5.8 pré-aquecido
+## 8       6.3 pré-aquecido
+```
+Observe que o retorno foi um outro data frame.
+
+Se o objetivo for apenas os valores numéricos dos `pré-aquecidos`, temos. 
+
+```r
+dados[5:8,1]
+```
+
+```
+## [1] 6.3 6.2 5.8 6.3
+```
+Observe que o retorno foi um atomic vector.
+
+---
+
+Poderíamos extrair todos os valores a partir do operador de acesso de coluna `$`, chamando primeiramente o objeto e em seguida o nome da coluna. O retorno sempre será um vetor.
+
+
+```r
+dados$Altura_cm
+```
+
+```
+##  [1] 6.1 5.9 5.8 5.4 6.3 6.2 5.8 6.3 7.1 8.2 7.3 6.9
+```
+
+Observe a diferença no retorno das diferentes formas de acesso a uma coluna. No caso abaixo, vamos acessar a coluna `Altura_cm`, cujo retorno será um vetor, semelhante ao exemplo anterior.
+
+```r
+dados[,1]
+```
+
+```
+##  [1] 6.1 5.9 5.8 5.4 6.3 6.2 5.8 6.3 7.1 8.2 7.3 6.9
+```
+
+---
+
+Compare com extração abaixo, nesse caso, temos como retorno um data frame.
+
+```r
+dados[1]
+```
+
+```
+##    Altura_cm
+## 1        6.1
+## 2        5.9
+## 3        5.8
+## 4        5.4
+## 5        6.3
+## 6        6.2
+## 7        5.8
+## 8        6.3
+## 9        7.1
+## 10       8.2
+## 11       7.3
+## 12       6.9
+```
+
+---
+
+Transformações nos dados podem ser realizadas utilizando esse memso operador (`$`), por exemplo, vamos criar uma nova variável denominada `Altura_m` a partir da `Altura_cm`, dividindo cada um de seus valores por 100.
+
+
+```r
+dados$Altura_m &lt;- dados$Altura_cm / 100 
+dados
+```
+
+```
+##    Altura_cm        Método Altura_m
+## 1        6.1      controle    0.061
+## 2        5.9      controle    0.059
+## 3        5.8      controle    0.058
+## 4        5.4      controle    0.054
+## 5        6.3  pré-aquecido    0.063
+## 6        6.2  pré-aquecido    0.062
+## 7        5.8  pré-aquecido    0.058
+## 8        6.3  pré-aquecido    0.063
+## 9        7.1 pré-resfriado    0.071
+## 10       8.2 pré-resfriado    0.082
+## 11       7.3 pré-resfriado    0.073
+## 12       6.9 pré-resfriado    0.069
+```
+
+---
+
+Agora criaremos a coluna `Bloco` para identificação dos blocos do experimento.
+
+
+```r
+dados$Bloco &lt;- gl(4, 1, 12, labels = c("I","II","III","IV"))
+head(dados, n = 4)
+```
+
+```
+##   Altura_cm   Método Altura_m Bloco
+## 1       6.1 controle    0.061     I
+## 2       5.9 controle    0.059    II
+## 3       5.8 controle    0.058   III
+## 4       5.4 controle    0.054    IV
+```
+
+Agora podemos modificar a posição das colunas dentro do data frame. Ou seja, vamos "reciclar" o objeto `dados`  guardando esse novo data frame no mesmo identificador. 
+
+
+```r
+dados &lt;- dados[,c(2,4,1,3)]
+head(dados, n = 4)
+```
+
+```
+##     Método Bloco Altura_cm Altura_m
+## 1 controle     I       6.1    0.061
+## 2 controle    II       5.9    0.059
+## 3 controle   III       5.8    0.058
+## 4 controle    IV       5.4    0.054
+```
+
+---
+
+Agora devemos criar uma coluna para a identificação ($ID$) para cada observação.
+
+
+```r
+dados$ID &lt;- paste("obs", 1:nrow(dados), sep="_" )
+dados
+```
+
+```
+##           Método Bloco Altura_cm Altura_m     ID
+## 1       controle     I       6.1    0.061  obs_1
+## 2       controle    II       5.9    0.059  obs_2
+## 3       controle   III       5.8    0.058  obs_3
+## 4       controle    IV       5.4    0.054  obs_4
+## 5   pré-aquecido     I       6.3    0.063  obs_5
+## 6   pré-aquecido    II       6.2    0.062  obs_6
+## 7   pré-aquecido   III       5.8    0.058  obs_7
+## 8   pré-aquecido    IV       6.3    0.063  obs_8
+## 9  pré-resfriado     I       7.1    0.071  obs_9
+## 10 pré-resfriado    II       8.2    0.082 obs_10
+## 11 pré-resfriado   III       7.3    0.073 obs_11
+## 12 pré-resfriado    IV       6.9    0.069 obs_12
+```
+---
+
+E vamos reordenar o data frame por `Altura_cm` da menor para a maior (utilize a função `order()`), em seguida, da maior para a menor nota (argumento `decreasing = T`).
+
+
+```r
+# Classificação do menor para o maior
+dados[order(dados$Altura_cm),]
+```
+
+```
+##           Método Bloco Altura_cm Altura_m     ID
+## 4       controle    IV       5.4    0.054  obs_4
+## 3       controle   III       5.8    0.058  obs_3
+## 7   pré-aquecido   III       5.8    0.058  obs_7
+## 2       controle    II       5.9    0.059  obs_2
+## 1       controle     I       6.1    0.061  obs_1
+## 6   pré-aquecido    II       6.2    0.062  obs_6
+## 5   pré-aquecido     I       6.3    0.063  obs_5
+## 8   pré-aquecido    IV       6.3    0.063  obs_8
+## 12 pré-resfriado    IV       6.9    0.069 obs_12
+## 9  pré-resfriado     I       7.1    0.071  obs_9
+## 11 pré-resfriado   III       7.3    0.073 obs_11
+## 10 pré-resfriado    II       8.2    0.082 obs_10
+```
+
+---
+
+Ordenação o data frame por `Altura_cm` da maior para a menor nota (argumento `decreasing = T`).
+
+
+```r
+# Classificação do maior para o menor
+dados[order(dados$Altura_cm,decreasing=TRUE),]
+```
+
+```
+##           Método Bloco Altura_cm Altura_m     ID
+## 10 pré-resfriado    II       8.2    0.082 obs_10
+## 11 pré-resfriado   III       7.3    0.073 obs_11
+## 9  pré-resfriado     I       7.1    0.071  obs_9
+## 12 pré-resfriado    IV       6.9    0.069 obs_12
+## 5   pré-aquecido     I       6.3    0.063  obs_5
+## 8   pré-aquecido    IV       6.3    0.063  obs_8
+## 6   pré-aquecido    II       6.2    0.062  obs_6
+## 1       controle     I       6.1    0.061  obs_1
+## 2       controle    II       5.9    0.059  obs_2
+## 3       controle   III       5.8    0.058  obs_3
+## 7   pré-aquecido   III       5.8    0.058  obs_7
+## 4       controle    IV       5.4    0.054  obs_4
+```
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
