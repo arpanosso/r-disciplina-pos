@@ -1,17 +1,35 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Estrutura de dados</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Alan R Panosso alan.panosso@unesp.br" />
+    <script src="libs/header-attrs-2.28/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Estrutura de dados
+]
+.subtitle[
+## Visualização de dados
+]
+.author[
+### Alan R Panosso <a href="mailto:alan.panosso@unesp.br" class="email">alan.panosso@unesp.br</a>
+]
+.institute[
+### Pós-graduação Agronomia (Ciência do Solo)
+]
+.date[
+### 09 a 20 de dezembro de 2024
+]
+
 ---
-title: "Estrutura de dados"
-subtitle: "Visualização de dados"
-author: "Alan R Panosso <alan.panosso@unesp.br>"
-institute: "Pós-graduação Agronomia (Ciência do Solo)"
-date: "09 a 20 de dezembro de 2024"
-output:
-  xaringan::moon_reader:
-    lib_dir: libs
-    nature:
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false
----
+
 
 ### Usando o ggplot2
 
@@ -21,7 +39,8 @@ Vamos carregar o **`tidyverse`**, que tem o pacote **`ggplot2`** como um de seus
 
 
 
-```{r,message=FALSE,error=FALSE,warning=FALSE}
+
+``` r
 library(tidyverse)
 ```
 
@@ -31,11 +50,39 @@ library(tidyverse)
 
 Vamos realizar a importação, via web, do banco de dados [geomorfologia.txt](https://raw.githubusercontent.com/arpanosso/r-disciplina-pos/refs/heads/master/data/geomorfologia.txt).
 
-```{r}
-URL <- "https://raw.githubusercontent.com/arpanosso/r-disciplina-pos/refs/heads/master/data/geomorfologia.txt"
-geomorfologia<-read.table(URL,
+
+``` r
+URL &lt;- "https://raw.githubusercontent.com/arpanosso/r-disciplina-pos/refs/heads/master/data/geomorfologia.txt"
+geomorfologia&lt;-read.table(URL,
                   header = TRUE)
 glimpse(geomorfologia)
+```
+
+```
+## Rows: 106
+## Columns: 22
+## $ SUP     &lt;chr&gt; "I", "I", "I", "I", "I", "I", "I", …
+## $ Solo    &lt;chr&gt; "LV", "LV", "LV", "LV", "LV", "LV",…
+## $ Amostra &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, …
+## $ X       &lt;int&gt; 0, 25, 50, 75, 100, 125, 150, 175, …
+## $ AMG     &lt;dbl&gt; 0.2, 0.1, 0.7, 0.4, 0.4, 0.4, 1.2, …
+## $ AG      &lt;dbl&gt; 3.72, 4.27, 5.00, 3.80, 3.10, 3.80,…
+## $ AM      &lt;dbl&gt; 20.4, 22.6, 22.7, 23.7, 22.3, 23.8,…
+## $ AF      &lt;dbl&gt; 22.9, 23.6, 22.2, 24.4, 24.6, 19.1,…
+## $ AMF     &lt;dbl&gt; 30.0, 28.4, 26.9, 26.7, 26.9, 27.1,…
+## $ SILTE   &lt;dbl&gt; 1.2, 1.2, 1.2, 0.6, 2.1, 2.2, 0.7, …
+## $ ARGILA  &lt;dbl&gt; 21.5, 20.4, 21.4, 20.5, 20.7, 23.5,…
+## $ S_A     &lt;dbl&gt; 0.05, 0.05, 0.05, 0.02, 0.10, 0.09,…
+## $ AF_AG   &lt;dbl&gt; 6.16, 5.53, 4.44, 6.42, 7.94, 5.03,…
+## $ P       &lt;dbl&gt; 42, 22, 41, 27, 11, 12, 11, 16, 38,…
+## $ pH      &lt;dbl&gt; 4.2, 3.8, 4.8, 4.0, 4.4, 4.0, 4.8, …
+## $ K       &lt;dbl&gt; 0.27, 0.11, 0.34, 0.13, 0.11, 0.14,…
+## $ Ca      &lt;dbl&gt; 1.4, 0.4, 2.4, 0.7, 1.4, 0.6, 1.6, …
+## $ Mg      &lt;dbl&gt; 0.3, 0.1, 0.4, 0.1, 0.3, 0.1, 0.7, …
+## $ H_Al    &lt;dbl&gt; 5.2, 5.8, 4.2, 5.2, 4.2, 5.2, 3.4, …
+## $ SB      &lt;dbl&gt; 1.97, 0.61, 3.14, 0.93, 1.81, 0.84,…
+## $ T       &lt;dbl&gt; 7.17, 6.41, 7.34, 6.13, 6.01, 6.04,…
+## $ V       &lt;dbl&gt; 27, 10, 43, 15, 30, 14, 43, 66, 31,…
 ```
 
 ---
@@ -46,7 +93,7 @@ Vamos criar um gráfico do teor de argila do solo ao longo do transecto estudado
 
 Para isso utilizaremos dois operadores:
 
-  **1)** `%>%` -  chamado **PIPE** do pacote `magrittr` o qual pode ser construído com o atalho **Ctrl + Shift + M**.
+  **1)** `%&gt;%` -  chamado **PIPE** do pacote `magrittr` o qual pode ser construído com o atalho **Ctrl + Shift + M**.
   
   **2)** `+` -  adição, para o controle das camadas gráficas e parâmetros específicos após aplicar a função `ggplot()`.
 
@@ -57,48 +104,64 @@ A forma mais simples para iniciarmos a confecção do gráfico é construírmos 
 
 No código abaixo, construiremos somente a tela de plotagem do gráfico.
 
-```{r}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot()
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+
 Se a nossa inteção é visualizar as alterações dos teores de argila ao longo do transecto nas diferentes superfícies geomórficas, precisamos construir uma gráfico de dispersão (`scatter`) entre a posição X e o teor de argila do solo. Para isso vamos utilizar a função de estética `aes()`, dentro da função `ggplot()`, para definir quais as colunas do objeto `geomorfologia` serão utilizadas para criação do gráfico. Observe que os eixos agora são desenhados.
   
-```{r}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot(aes(x=X, y =ARGILA))
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+
 A geometria de pontos agora deve ser indicada, ou seja, vamos adicionar uma nova camada a esse gráfico. Sempre utilizaremos o operador de adição `+` para adicioar uma camada de pontos a esse gráfico `geom_point()`. 
 
-```{r}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=X, y =ARGILA) ) +
   geom_point()
 ```
+
+![](07-VisuaDados_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
 ## Controlando geometrias
 
 Outras geometrias poderiam ser utlizadas, ao invés de pontos, poderíamos pedir uma geometria de linha por exemplo: 
 
-```{r}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=X, y =ARGILA) ) +
   geom_line()
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+
 Ou poderíamos mesclar as duas geometrias:
 
-```{r}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=X, y =ARGILA) ) +
   geom_line()+
   geom_point()
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+
 Agora, finalmente, podemos controlar algumas propriedades dentro de cada geometria.
 
-```{r}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=X, y =ARGILA) ) +
   geom_line(color="blue", # cor da linha
             lwd= 0.7, # espessura da linha
@@ -109,45 +172,60 @@ geomorfologia %>%
              size=3) # tamanho do marcador
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+
 **OBS**: A forma de um ponto (marcador) é controlada pelo argumento `shape`. Há algumas duplicadas aparentes nesse argumento, que recomendamos qua sejam testadas por exemplo, 0, 15 e 22 são quadrados. A diferença vem da interação das estéticas `color` e `fill`. As formas ocas são de 0 a 14 e a cor de sua borda é determinada por `color`, as formas sólidas são de 15 a 18 e a sua cor de preenchimento é definida por `color`, já as formas de 21 a 24 têm a cor de sua  borda definida por `color` e a cor de seu preenchimento definida por `fill`. Veja os exemplos:
 
-```{r}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=X, y =ARGILA) ) +
   geom_line(color="red", lwd= 0.7, linetype=1) +
   geom_point(shape=0, size=5, color = "blue") 
 ```
 
-```{r}
-geomorfologia %>% 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=X, y =ARGILA) ) +
   geom_line(color="red", lwd= 0.7, linetype=1) +
   geom_point(shape=15, size=5, color = "blue") 
 ```
 
-```{r}
-geomorfologia %>% 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=X, y =ARGILA) ) +
   geom_line(color="red", lwd= 0.7, linetype=1) +
   geom_point(shape=22, size=5, color = "blue", fill="green") 
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+
 Nosso próximo passo será controlar os títulos dos eixos a partir da função `labs()`.
 
-```{r}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=X, y =ARGILA) ) +
   geom_line(col="blue", lwd= 0.7, lty=1)+ 
   geom_point(shape=21, fill="green", col="red", size=3) +
   labs(x="Eixo x (m)",y="Teor de argila do solo (%)", title = "Gráfico de Linha + Pontos")
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+
 ## Definindo temas
 
 Podemos utilizar diferentes temas, para isso vamos guardar o gráfico anterior em um objeto denominado `meu_plot`.
 
-```{r}
-meu_plot <- geomorfologia %>% 
+
+``` r
+meu_plot &lt;- geomorfologia %&gt;% 
               ggplot( aes(x=X, y =ARGILA) ) +
               geom_line(col="blue", lwd= 0.7, lty=1)+ 
               geom_point(shape=21, fill="green", col="red", size=3) +
@@ -155,12 +233,30 @@ meu_plot <- geomorfologia %>%
 meu_plot
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+
 Agora podemos aplicar um tema pré-definido ao gráfico a partir da família de função `theme_`. Compare os diferentes temas diponíveis.
 
-```{r}
+
+``` r
 meu_plot + theme_minimal()
+```
+
+![](07-VisuaDados_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+
+``` r
 meu_plot + theme_bw()
+```
+
+![](07-VisuaDados_files/figure-html/unnamed-chunk-14-2.png)&lt;!-- --&gt;
+
+``` r
 meu_plot + theme_dark()
+```
+
+![](07-VisuaDados_files/figure-html/unnamed-chunk-14-3.png)&lt;!-- --&gt;
+
+``` r
 # ...
 ```
 
@@ -184,26 +280,36 @@ A família de funções `element_` especificam a exibição de como os component
 
 Por exemplo, vamos duplicar  o tamanho de fonte (`rel(2)`) do título do gráfico já criado `meu_plot`.
 
-```{r}
+
+``` r
 meu_plot + theme(plot.title = element_text(size=rel(2)))
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+
 Vamos modificar o alinhamento do e a cor do título do gráfico já criado `meu_plot`.
 
-```{r}
+
+``` r
 meu_plot + theme(plot.title = element_text(hjust = 0.5, color = "red"))
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+
 Alterando a área de plotagem.
 
-```{r}
+
+``` r
 meu_plot + theme(panel.background = element_rect(fill="lightblue", color = "red", linetype = "dashed"))
 ```
+
+![](07-VisuaDados_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
 
 
 Agora vamos fazer várias modificações, adicionando linhas de grade na área de plotagem, mudar as cores do texto dos eixos para vermelho, as cores dos títulos dos eixos para verde escuro e alterar a cor do retângulo de plotagem exterior para cinza.
 
-```{r}
+
+``` r
 meu_plot + theme(panel.grid.major = element_line(color="gray", linetype = "dashed"),
                  panel.grid.minor = element_line(color="gray", linetype = "dashed"),
                  axis.text = element_text(colour = "red"),
@@ -211,18 +317,23 @@ meu_plot + theme(panel.grid.major = element_line(color="gray", linetype = "dashe
                  plot.background = element_rect(fill="gray"))
 ```
 
-Maiores informações a respeito dos parâmetros de controle dos elementos dos gráficos podem ser encontrados em  <https://ggplot2.tidyverse.org/reference/theme.html>.
+![](07-VisuaDados_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+
+Maiores informações a respeito dos parâmetros de controle dos elementos dos gráficos podem ser encontrados em  &lt;https://ggplot2.tidyverse.org/reference/theme.html&gt;.
 
 
 ## Mapeamento estéticos
 
 Vamos voltar ao gráfico de dispersão do teor de argila do solo ao longo do transecto estudado.
 
-```{r}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=X, y =ARGILA) ) +
   geom_point()
 ```
+
+![](07-VisuaDados_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
 
 Podemos agora adicionar uma terceira variável a esse gráfico, como tipo de solo (`Solo`) ou a superfície geomórfica (`SUP`), e mapeá-la a partir de um **estético** *(aesthetic)*. Esse estético é uma propriedade visual dos objetos no gráfico. Estéticos incluem coisas como tamanho, forma ou cor dos pontos. 
 
@@ -230,29 +341,43 @@ Em nosso exemplo inicial Vamos mapear as cores dos pontos para cada superfície 
 
 Para mapear a estética *cor* à variável `SUP`, devemos associar o nome da estética ao nome da variável dentro de `aes()`. O `ggplot2` atribuirá automaticamente uma cor singular para cada valor singular da variável, um processo conhecido como **escalar** (*scaling*). Automaticamente será adicionado uma legenda que explica quais níveis correspondem a quais valores.
 
-```{r}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=X, y =ARGILA, col = SUP) ) +
   geom_point()
 ```
+
+![](07-VisuaDados_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
 
 No exemplo anterior mapeamos `SUP` à estética *cor*, mas poderíamos ter mapeado `SUP` à estética de *tamanho* (`size`) da mesma maneira. 
 
 Neste caso, o tamanho exato de cada ponto revela a sua superfície. Entretanto, não recomendamos o mapeamento de uma variável por meio do tamanho.
 
-```{r}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=X, y =ARGILA, size = SUP) ) +
   geom_point()
 ```
 
+```
+## Warning: Using size for a discrete variable is not
+## advised.
+```
+
+![](07-VisuaDados_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+
 Poderíamos ter mapeado `SUP` à estética `alpha`, que controla a transparência e à forma dos pontos controlada pelas estética `shape`.
 
-```{r, message=FALSE, warning=FALSE}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=X, y =ARGILA, alpha = SUP, shape=SUP) ) +
   geom_point()
 ```
+
+![](07-VisuaDados_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
 
 ## Facetas
 
@@ -262,47 +387,62 @@ Para criar facetas use a função `facet_wrap()`, cujo primeiro argumento deve s
 
 Compare os painéis abaixo:
 
-```{r, message=FALSE}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=X, y =ARGILA) ) +
   geom_point() +
   facet_wrap(~SUP, nrow=1)
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
 
-```{r, message=FALSE}
-geomorfologia %>% 
+
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=X, y =ARGILA) ) +
   geom_point() +
   facet_wrap(~SUP, nrow=3)
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+
 Outra importante e útil ferramenta é a função `facet_grid` que permite a incorporação de mais de uma variável na representação, no nosso exemplo, vamos adicionar o tipo de solo `Solo`. A fórmula conterá dois nomes de variáveis categóricas sepradas pelo `~` 
 
-```{r, message=FALSE}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=X, y =ARGILA) ) +
   geom_point() +
   facet_grid(SUP ~ Solo)
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+
 
 Agora podemos mesclar as visualisações, utilizando o mapeamento estético e as facetas.
-```{r, message=FALSE}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=X, y =ARGILA, color=Solo) ) +
   geom_point() +
   facet_wrap(~SUP, nrow=1)
 ```
+
+![](07-VisuaDados_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
 ou, 
 
-```{r, message=FALSE}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=X, y =ARGILA, color=SUP) ) +
   geom_point() +
   facet_wrap(~Solo, nrow=4) +
   labs(x="Eixo x (m)", y= "Teor de argila (%)", color="Superfície")
 ```
+
+![](07-VisuaDados_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
 
 ## Objetos geométricos
 
@@ -310,120 +450,159 @@ geomorfologia %>%
 
 Um `geom_` é o objeto geométrico que um gráfico usa para representar os dados. Gráficos de colunas, por exemplo, usam o `geom_col()`. O preenchimento e as cores das bordas das colunas são controlados pelos argumentos `fill` e `color`. Gráfico de coluas, linhas e pontos, plotam os valores brutos.
 
-```{r, message=FALSE}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=X, y =ARGILA) ) +
   geom_col(color="black",fill="aquamarine4")
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+
 O gráfico de **colunas** também pode ser apresentadorotacionado em 90º a partir do uso da função`coord_flip()`.
 
-```{r, message=FALSE}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=X, y=ARGILA) ) +
   geom_col(color="black",fill="aquamarine4") +
   coord_flip()
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
+
 ### Gráfico de Barras
 
 Diferente do gráfico de colunas, o gráfico de **barras** possibilita a representação de dados categóricos, vamos supor que devemos contar o número de observações em cada superfície geomórfica. A função `geom_bar()` conta os pontos em cada categoria de `SUP` automaticamente.
 
-```{r, message=FALSE}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=SUP) ) +
   geom_bar(color="black", fill="lightblue")
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
+
 Podemos mapear a superfície geomófica associando `SUP` à estética `fill`: 
 
-```{r, message=FALSE}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=SUP, fill=SUP)) +
   geom_bar(color="black")
 ```
+
+![](07-VisuaDados_files/figure-html/unnamed-chunk-31-1.png)&lt;!-- --&gt;
 Se adicionarmos uma segunda variáveis categórica, como o tipo de solo `Solo`, as barras são automaticamente empilhadas, ondem cada retângulo colorido representa uma combinação de `SUP` e `Solo`.
 
-```{r, message=FALSE}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=SUP, fill=Solo)) +
   geom_bar(color="black")
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
+
 O empilhamento é realizado automaticamente, caso não queiramos o gráfico empilhado, utilizamos um dos três valores `identity`, `dodge` ou `fill` associados ao argumento `position`.
 
-```{r, message=FALSE}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=SUP, fill=Solo)) +
   geom_bar(position = "fill", color="black")
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
 
-```{r, message=FALSE}
-geomorfologia %>% 
+
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=SUP, fill=Solo)) +
   geom_bar(position = "dodge", color="black")
 ```
+
+![](07-VisuaDados_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
 
 ### Smoothers
 
 Vamos ajustar uma linha suave aos dados de teor de argila ao longo do transecto X a partir da função `geom_smooth()`.
 
-```{r, message=FALSE}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=X, y =ARGILA) ) +
   geom_point() + 
   geom_smooth()
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
+
 
 Dentro de  `geom_smooth()` podemos controlar o tipo da linha e a cor da linha a partir de `linetype` e `color`, respectivamente.
 
-```{r, message=FALSE}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=X, y =ARGILA) ) +
   geom_point() + 
   geom_smooth(linetype=2, color="blue")
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
+
 Agora vamos aplicar uma linha suave para cada uma das superfícies geomórficas.
 
-```{r, message=FALSE}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=X, y =ARGILA, color=SUP) ) +
   geom_point() + 
   geom_smooth()
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-37-1.png)&lt;!-- --&gt;
+
 Agora em diferentes facetas.
 
-```{r, message=FALSE}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=X, y =ARGILA, color=SUP) ) +
   geom_point() + 
   geom_smooth() +
   facet_wrap(~SUP, nrow=1)
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-38-1.png)&lt;!-- --&gt;
+
 Para apresentarmos as facetas em diferentes escalas (diferentes valores de X e Y em cada faceta), utilize o argumento `scales = "free"` em `facet_wrap()`.
 
-```{r, message=FALSE}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=X, y =ARGILA, color=SUP) ) +
   geom_point() + 
   geom_smooth() +
   facet_wrap(~SUP, nrow=1, scales = "free")
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-39-1.png)&lt;!-- --&gt;
+
 ### Boxplot
 
 Conhecido como gráfico dos 5 números representa um resumos dos valores mínimo, primeiro quartil, mediana, terceiro quartil e máximo. Podem ser construídos para uma variável contínua a partir da geometria `geom_boxplot()`. Observe que dentro da função `ggplot()` não é necessário especificar o `y`, somente é atribuído a `x` a variável contínua `ARGILA`.
 
-```{r, message=FALSE}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(x=ARGILA) ) +
   geom_boxplot()
 ```
+
+![](07-VisuaDados_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
 
   * O boxplot é uma caixa que vai do 25º percentil ao 75º percentil da distribuição, uma distância conhecida como a amplitude interquartil (IIQ). No meio da caixa há uma linha que exibe a mediana, isto é, 50º percentil, da distribuição. Essas três linhas lhe dão um sentido da dispersão da distribuição e se ela é ou não simétrica sobre a mediana ou enviesada para um lado.
   
@@ -433,84 +612,112 @@ geomorfologia %>%
 
 Podemos modificar a orientação do boxplot por meio de `aes(y=ARGILA)`.
 
-```{r, message=FALSE}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(y=ARGILA) ) +
   geom_boxplot() 
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-41-1.png)&lt;!-- --&gt;
+
 Outra possibilida é diminuir o tamanho da caixa com `coord_cartesian()`.
 
-```{r, message=FALSE}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(y=ARGILA) ) +
   geom_boxplot() +
   coord_cartesian(xlim=c(-1,1))
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
+
 Outra alternativa para exibir a distribuição de uma variável contínua é desmembrá-la por uma variável categórica no boxplot.
 
-```{r, message=FALSE}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot( aes(y=ARGILA, fill=Solo) ) +
   geom_boxplot()
 ```
+
+![](07-VisuaDados_files/figure-html/unnamed-chunk-43-1.png)&lt;!-- --&gt;
 
 ### Histograma
 
 O gráfico histograma é facilmente construído a partir da função `geom_histogram()`. Semelhante ao `geom_boxplot()` dentro da função `ggplot()`  é atribuído a `x` a variável contínua `ARGILA`.
 
-```{r, message=FALSE}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot(aes(x=ARGILA)) +
   geom_histogram()
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-44-1.png)&lt;!-- --&gt;
+
 Observe que o histograma foi construído com a frequencia absoluta de cada classe, ou seja, o número de observações (contagem) dentro de cada classe de teor de argila construída automaticamentem pela função. Se ao invés da contagem, quiséssemos a densidade de frenquência, deveremos utilizar `y=..density..` dentro de `aes()`.
 
-```{r, message=FALSE}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot(aes(x=ARGILA, y=..density..)) +
   geom_histogram()
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-45-1.png)&lt;!-- --&gt;
+
 Podemos estabelecer a amplitude dos intervalos em um histograma com o argumento `bidwidth`, que é medido nas unidades da variável x.
 
-```{r, message=FALSE}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot(aes(x=ARGILA, y=..density..)) +
   geom_histogram(binwidth = 1)
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-46-1.png)&lt;!-- --&gt;
+
 Ou você pode especificar o número de classes a partir do argumento `bins`, que por default é igual a `30`.
 
-```{r, message=FALSE}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot(aes(x=ARGILA, y=..density..)) +
   geom_histogram(bins =  15)
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-47-1.png)&lt;!-- --&gt;
+
 Vamos alterar as cores das bordas e do preeenchimento das colunas do histograma.
 
-```{r, message=FALSE}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot(aes(x=ARGILA, y=..density..)) +
   geom_histogram(bins =  15, color="black",fill="white")
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-48-1.png)&lt;!-- --&gt;
+
 Podemos associar a curva suave de densidade no hitograma, a partir da função `geom_density()` e controlar a transparência e seu preenchimento a partir dos argumentos `alpha` e `fill`, respectivamente.
 
-```{r, message=FALSE}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot(aes(x=ARGILA, y=..density..)) +
   geom_histogram(bins =  15,color="black",fill="white")+
   geom_density(alpha=.10, fill="red")
 ```
 
+![](07-VisuaDados_files/figure-html/unnamed-chunk-49-1.png)&lt;!-- --&gt;
+
 Finalmente, podemos construir um histograma da variável `ARGILA` para cada superfície geomórfica.
 
-```{r, message=FALSE}
-geomorfologia %>% 
+
+``` r
+geomorfologia %&gt;% 
   ggplot(aes(x=ARGILA, y=..density.., color=SUP, fill=SUP)) +
   geom_histogram(bins =  15, color="black",fill="white")+
   geom_density(alpha=.2)+
@@ -518,3 +725,141 @@ geomorfologia %>%
   labs(x="Teor de argila do solo (%)", y = "Densidade", fill="Superfície", color="Superfície") +
   theme_minimal()
 ```
+
+![](07-VisuaDados_files/figure-html/unnamed-chunk-50-1.png)&lt;!-- --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
