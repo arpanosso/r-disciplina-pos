@@ -23,11 +23,11 @@ Ambos os pacotes fazem parte do `tidyverse`, que, como já dito, é um pacote de
 
 **Importação dos dados** 
 
-Vamos realizar a importação, via web, do banco de dados [geomorfologia.txt](https://raw.githubusercontent.com/arpanosso/r_data_science_fcav/master/dados/geomorfologia.txt).
+Vamos realizar a importação, via web, do banco de dados [geomorfologia.txt](https://raw.githubusercontent.com/arpanosso/r-disciplina-pos/refs/heads/master/data/geomorfologia.txt).
 
 ```{r}
 library(tidyverse)
-URL <- "https://raw.githubusercontent.com/arpanosso/r_data_science_fcav/master/dados/geomorfologia.txt"
+URL <- "https://raw.githubusercontent.com/arpanosso/r-disciplina-pos/refs/heads/master/data/geomorfologia.txt"
 geomorfologia<-read.table(URL,header = TRUE)
 glimpse(geomorfologia)
 ```
@@ -539,7 +539,7 @@ Classifique a Textura do solo.
 
 
 ```{r echo=FALSE, fig.cap="A figura 1 apresenta os intervalos de argila e a respectiva classificação do solo. . FONTE (https://www.pedologiafacil.com.br/textura.php)",fig.align='center',out.width = "600px"}
-knitr::include_graphics("img/textura.gif")
+knitr::include_graphics("../img/textura.gif")
 ```
 
 ```{r eval=FALSE}
