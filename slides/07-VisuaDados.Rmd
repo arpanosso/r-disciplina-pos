@@ -1,17 +1,3 @@
----
-title: "Estrutura de dados"
-subtitle: "Visualização de dados"
-author: "Alan R Panosso <alan.panosso@unesp.br>"
-institute: "Pós-graduação Agronomia (Ciência do Solo)"
-date: "09 a 20 de dezembro de 2024"
-output:
-  xaringan::moon_reader:
-    lib_dir: libs
-    nature:
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false
----
 
 ### Usando o ggplot2
 
