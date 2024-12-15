@@ -446,7 +446,7 @@ geomorfologia %>%
   View()
 ```
 
-Classifique os registros por ordem alfabéticas de solos e utilize como crotério de desempate o teor de fósforo disponível no solo em ordem decrescente.
+Classifique os registros por ordem alfabéticas de solos e utilize como critério de desempate o teor de fósforo disponível no solo em ordem decrescente.
 ```{r eval=FALSE}
 geomorfologia %>% 
   arrange(Solo, desc(P)) %>% 
