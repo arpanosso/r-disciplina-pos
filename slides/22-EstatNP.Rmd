@@ -1,0 +1,247 @@
+# Estatística Não Paramétrica
+
+## Teste Não Paramétrico
+
+
+Quando amostras são retiradas de populações com distribuições desconhecidas, não é apropriado o uso dos testes $z$ ou $t$. 
+
+Indicações destas distribuições são quando a **moda é próxima do fim da amplitude** ou quando algumas observações tem **valores mais extremos** do que outros. 
+
+Testes *não paramétricos* são apropriados para estas amostras porque **nenhuma distribuição teórica é assumida** . Muitos destes testes comparam as populações por meio de alguma medida central como a **mediana** e a **moda**. 
+
+A transformação **ordenação** dos dados também é utilizada. 
+
+O uso desta transformação diminui a importância da distribuição e a influência de valores extremos nas amostras. 
+
+A hipótese nula é que **não existe efeito de grupos**. 
+
+É assumido que **as distribuições dos grupos são iguais**, mas não necessariamente conhecidas. 
+
+
+A aplicação do teste t-student para duas amostras requer que as duas populações amostradas sejam normais e com variâncias iguais (homocedásticas). 
+
+
+Felizmente, a maioria dos testes mais comuns empregados são suficientemente robustos para desvios das hipóteses teóricas. 
+
+Entretanto, existe uma grande variedade de métodos que não requerem a estimação da variância ou da média e não impõem hipóteses sobre os parâmetros.   
+
+Estes testes são denominados de **testes não paramétricos**.
+
+
+Como estes métodos também não fazem suposições sobre a natureza da distribuição (isto é, normalidade) das populações amostradas, eles são as vezes denominados **de testes livres de distribuições**. 
+
+![](../img/tnp01.png)
+
+### O teste do sinal (The Sign Test):
+
+1) Deseja-se escolher entre dois equipamentos de laboratórios, $A$ e $B$, capazes de realizar $12$ análises diferentes e que a rapidez de execução seja um ponto a ser considerado.
+
+![](../img/tnp02.png)
+$$\begin{cases}
+H_0: \text{as populações para os grupos são a mesma} \\
+H_1: \text{as observações para os grupo não são as mesmas}
+
+\end{cases}$$
+
+sob $H_0$ verdadeira  é de se esperar uma ocorrência de $N/2$ sinais negativos e $N/2$ sinais positivos, ou seja, o problema se resume em testar se $f( - )$ ou $f( + )$ seja igual a $1/2$. assim calcula-se a estatística $Z$ definida por:
+
+$$
+Z = \frac{p-0,5}{\sqrt{\frac{N}{2}}} \sim \mathcal{N}(0, 1)
+$$
+
+Temos :
+ $p = f( - ) = 2/12=1/6$ e   $zc = -2,28$, sendo que o valor crítico de $|Z_{0,05}| =1,96$. Logo pode-se afirmar, com base nos dados amostrais, que os equipamentos $A$ e $B$ diferem entre si significativamente quanto ao tempo do resultado para $\alpha = 0,05$.
+
+### Resolvendo no R
+
+$$\begin{cases}
+H_0: \text{as populações para os grupos são a mesma} \\
+H_1: \text{as observações para os grupo não são as mesmas}
+
+\end{cases}$$
+
+```{r}
+A<-c(40,22,22,45,68,33,48,75,41,44,47,31)
+B<-c(29,16,29,41,61,24,54,68,36,36,42,25)
+D<-A-B
+x<-sum(D<0)
+N<-length(D)
+prop.test(x,N,p=.5,alternative="t")
+```
+
+2) Em determinada variedade de cana-de-açúcar, o comprimento médio do terceiro internódio é de $22\;cm$. Admitindo esse como um fator discriminante e querendo averiguar se a cada de um talhão pertence a esta variedade, foram tomadas nove amostras de $6$ colmos cada, obtendo-se os seguintes comprimentos médios do terceiro internódio:
+
+$$\begin{cases}
+H_0: \mu = 22 \;cm \\
+H_1: \mu \neq 22 \;cm
+
+\end{cases}$$
+
+![](../img/tnp03.png)
+![](../img/tnp04.png)
+
+
+```{r}
+Z<-c(23.30, 22.40, 21.10, 22.60, 22.20, 23.50, 22.70, 22.80, 23.00)
+D<-Z-22
+x<-sum(D<0)
+N<-length(D)
+prop.test(x, N, p=.5,alternative="t")
+```
+
+### Dados ordinais 
+
+Os dados ordinais raramente têm uma distribuição normal, então para analisa-los, são usados testes não-paramétricos. Os testes de  significância mais comumente aplicados em dados ordinais são os seguintes:
+
+![](../img/tnp05.png)
+
+#### O teste de "Wilcoxon Signed-Rank" para locação
+
+As vezes desejamos testar uma H0 sobre a média populacional, mas por alguma razão **(amostras pequenas,  n<30, de uma população que sabidamente não tem distribuição normal, e o Teorema do Limite Central não é aplicável)**  nem a estatística $\mathcal{Z}$ ou a  $t-student$ são testes estatísticos apropriados.
+
+Como vimos anteriormente, **o teste do sinal** pode ser usado quando dados consistem de uma amostra simples ou quando temos dados pareados. Entretanto, o Teste do Sinal (The Sign Test) pode não ser adequado visto que **ele não utiliza toda a informação contida nos dados**. Um procedimento mais apropriado pode ser o teste de **Wilcoxon signed-rank** (Teste das Ordens Assinaladas), o qual **faz uso da magnitude da diferença entre as medidas** e parâmetro de locação do que simplesmente os sinais das diferenças. 
+
+
+O teste de **Wilcoxon** para locação é baseado nas seguintes hipóteses sobre os dados:
+
+
+  + a amostra é aleatória  
+  + a variável é contínua  
+  + a população é simetricamente distribuída em torno da sua média    
+
+
+
+**As hipóteses estatísticas**  
+
+a)
+$$\begin{cases}
+H_0: \mu = \mu_0  \\
+H_1: \mu \neq \mu_0
+\end{cases}$$
+
+b)
+$$\begin{cases}
+H_0: \mu \ge \mu_0  \\
+H_1: \mu < \mu_0
+\end{cases}$$
+
+
+c)
+$$\begin{cases}
+H_0: \mu \le \mu_0  \\
+H_1: \mu > \mu_0
+\end{cases}$$
+
+Os cálculos do  teste será ilustrado por meio de um exemplo
+
+Exemplo: Os dados abaixo referem-se a frequência cardíaca pós operatória de 15 animais operados do coração. Os resultados foram:
+
+4,91   4,10    6,74    7,27    7,42    7,50    6,56    4,64    5,98    3,14    3,23    5,80    6,17    5,39      5,77   
+
+
+Podemos concluir, com base nestes dados de que a média populacional é diferente de $5,05$ ?
+
+$$\begin{cases}
+H_0: \mu = 5,05  \\
+H_1: \mu \neq 5,05
+\end{cases}$$
+
+![](../img/tnp06.png)
+
+Neste exemplo comparamos $T = 3$4 com um valor tabelado de $T_t$ . Se $T \le T_{( n, \alpha/2)}$
+
+```{r}
+fc<-c(4.91, 4.10, 6.74, 7.27, 7.42, 7.50, 6.56,
+	4.64, 5.98, 3.14, 3.23, 5.80, 6.17, 5.39, 5.77)
+di<-fc-5.05
+posto<-rank(abs(di))
+sinal<-ifelse(di>0,posto,-1*posto)
+data.frame(fc, di, posto, sinal)
+sum(posto[di>0])
+sum(posto[di<0])
+```
+```{r}
+hist(fc,col="gray",ylim=c(0,5));box()
+abline(v=mean(fc),col=2,lwd=2,lty=2)
+abline(v=median(fc),col=4,lwd=2,lty=2)
+legend(3.5,4,c("Media","Mediana"),col=c(2,4),lty=c(2,2),lwd=2)
+wilcox.test(fc,mu=5.05,alternative="t")
+
+```
+Não rejeitamos a hipótese da nulidade e podemos concluir que a média populacional não é diferente de 5,05.
+
+
+
+#### Teste da Soma dos Postos de Wilcoxon (The Wilcoxon Rank Sum Test).
+
+O teste da soma dos postos de **Wilcoxon** é o teste não paramétrico para comparar dois grupos independentes. 
+
+Ele é um teste não paramétrico análogo **ao teste t** para duas amostras e as vezes é referido como o **Mann-Whitney U test**. 
+
+A hipótese $H_0$ é que as populações são as mesmas. 
+
+A única **suposição** para estes testes é que as observações são independentes. 
+
+Na prática, este teste é usado com variáveis cujas medidas são ordinais, intervalos, e razões. 
+
+As hipóteses necessárias para a aplicação do teste
+
+  + as duas amostras de tamanhos n e m são amostras independentes e aleatórias de suas respectivas populações   
+  + a escala das medidas é pelo menos ordinal  
+  + se as populações diferem, elas diferem somente com respeito às suas medianas.  
+
+ 
+Exemplo de aplicação do **Wilcoxon Rank Sum Test** (alternativa mais comumente usada para o teste t para amostras independentes).
+
+Considere os resultados de dois tratamentos A e B, respectivamente, e obteve-se os resultados expressos abaixo.
+
+![](../img/tnp07.png)
+Hipóteses estatísticas
+
+$$\begin{cases}
+H_0: \tilde{m}_A = \tilde{m}_B  \\
+H_1: \tilde{m}_A \neq \tilde{m}_B
+\end{cases}$$
+
+O teste estatístico
+
+$$T = S - \frac{n(n+1)}{2}$$
+
+Soma-se os postos dos tratamento A:
+
+Tratamento $A = ( 5,5 + 2 + 4 + 1 + 3 ) = 15,5  =  S$. Então, o valor da estatística é 
+
+$$T = 15,5 - \frac{5(6+1)}{2} = 0,5$$
+
+a qual é menor do que o valor tabelado de $T = 5$ dado em tabela teórica. Portanto concluímos que a **mediana** dos valores dos dados do tratamento A diferem significativamente do tratamento B.
+
+Quando $n > 20$, podemos fazer a aproximação à normal padronizada 
+
+$$z = \frac{T - \frac{nm}{2}}{\sqrt{nm(n+m+1)/12}} \sim \mathcal{N}(0,1)$$
+
+```{r}
+y <- c(110,90,100,85,95,110,150,125,120,115)
+trat <- gl(2,5,labels=c("A","B"))
+wilcox.test(y~trat,alternative="t")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
