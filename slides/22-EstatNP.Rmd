@@ -225,23 +225,175 @@ trat <- gl(2,5,labels=c("A","B"))
 wilcox.test(y~trat,alternative="t")
 ```
 
+Utilize o teste de **Wilcoxon Rank Sum** para analisar os dados do conteúdo dos valores do teor de um micronutriente de dois tratamentos A e B.
+
+Hipóteses estatísticas
+
+$$\begin{cases}
+H_0: \tilde{m}_A = \tilde{m}_B  \\
+H_1: \tilde{m}_A \neq \tilde{m}_B
+\end{cases}$$
+
+![](../img/tnp08.png)
+
+```{r}
+A <- c(
+  0.2, 10.4, 0.3, 10.9, 0.4,
+  11.3, 1.1, 12.4, 2.0, 16.2,
+  2.1, 17.6, 3.3, 18.9, 3.8,
+  20.7, 4.5, 24.0, 4.8, 25.4,
+  4.9, 40.0, 5.0, 42.2, 5.3,
+  50.0, 7.5, 60.0, 9.8
+)
+
+B <- c(
+  0.2, 5.4, 0.3, 5.7, 0.4,
+  5.8, 0.7, 7.5, 1.2, 8.7,
+  1.5, 8.8, 1.5, 9.1, 1.9,
+  10.3, 2.0, 15.6, 2.4, 16.1,
+  2.5, 16.5, 2.8, 16.7, 3.6,
+  20.0, 4.8, 20.7, 4.8, 33.0
+)
+
+wilcox.test(A,B)
+```
+
+Exemplo de aplicação do teste de **Wilcoxon signed rank test/Mann-Whitney (aproximação normal)**: sementes foram tratadas com um hormônio. O objetivo do experimento foi determinar se o tratamento com o hormônio A poderia resultar em uma alta taxa de germinação. Os dados observados foram 
+
+![](../img/tnp09.png)
+
+![](../img/tnp10.png)
+
+### (The Kruskal-Wallis One Way Analysis of Variance by Ranks)
+
+A análise de variância pode ser usada para testar a igualdade de várias médias.
+
+Quando as hipóteses da análise de variância não são satisfeitas, ou seja, **quando as populações** das quais as amostras foram retiradas **não são normais com variâncias iguais**, uma alternativa não-paramétrica para a análise de variância pode ser usada para testar a igualdade de médias.
+
+Várias técnicas não-paramétricas análogas à análise de variância são descritas na literatura, mas a mais bem conhecida é a de **Kruskal-Wallis**.
+
+A técnica será apresentada por meio de um exemplo
+
+Suposições: 
+
+  + As doses são amostras aleatórias independentes.  
+  + A escala das medidas empregada é pelo menos ordinal.  
+  + As distribuições das populações amostradas são idênticas exceto que uma ou mais das populações são compostas de valores que tendem a ser maiores do que nas outras populações.
+
+Hipóteses estatísticas
+
+$$\begin{cases}
+H_0: \text{as distribuições das populações são iguais} \\
+H_1: \text{pelo menos uma tende a exibir valores maiores do que pelo menos uma outra população.}
+\end{cases}$$
+
+**Exemplo**: O efeito de três doses de um fungicida no número de lagartas na cultura de soja produziram os dados abaixo. A Dose $I$ serviu como controle, enquanto as plantas nas doses $II$ e $III$ foram tratados são doses crescentes do fungicida. 
+
+![](../img/tnp11.png)
 
 
+```{r}
+g1 <- c(17,20,40,31,35)
+g2 <- c(8,7,9,8) 
+g3 <- c(2,5,4,3)
+boxplot(g1,col=2,ylim=c(0,40),main="g1",cex.lab=2)
+boxplot(g2,col=3,ylim=c(0,40),main="g2",cex.lab=2)
+boxplot(g3,col=4,ylim=c(0,40),main="g3",cex.lab=2)
+
+```
+
+**O teste estatístico**
+
+$$H = \frac{12}{n(n+1)}\sum_{j=1}^k \frac{R^2_j}{n_j}-3(n+1)$$
+em que:
+$k$ é o número de grupos, $n_j$ é o número de observações no j-ésimo grupo, $n$ é o número total de observações de todos os grupos e $R_j$ é a soma de postos no j-ésimo grupo.
+
+Aplicando aos dados temos
+
+$$H = \frac{12}{13(13+1)}\left( \frac{55^2}{5} + \frac{26^2}{4} + \frac{10^2}{4} \right)-3(13+1) = 10,68$$
+Um valor de tabela quando os $nj’s$ são $5$, $4$, e $4$ mostra que o "p-value" alcançado é de $0,005$. Portanto, concluímos que existe uma diferença significativa entre as doses de fungicidas quanto ao número de lagartas na cultura da soja. Para este teste $p < 0,005$.
+
+```{r}
+kruskal.test(list(g1,g2,g3))
+```
+
+Para a comparação múltipla, podemos utilizar a função `kruskal` do pacote `agricolae`.
+
+```{r}
+resp <- c(g1,g2,g3)
+trat <- rep(1:3,c(5,4,4))
+agricolae::kruskal(resp,trat, console = TRUE)
+```
+### Inferências sobre uma ou duas populações: dados categóricos.
+
+Dados categóricos são medidas de variáveis nominais. Pelo fato de que os valores assumidos pelas variáveis nominais não têm interpretações quantitativas, dados categóricos são melhores descritos usando-se contagens e proporções. 
+
+Em muitas situações os dados são coletados simultaneamente para duas variáveis, e deseja-se testar a hipótese de que as frequências de ocorrências de várias categorias de uma variável são independentes das frequências na segunda variável (Teste de Independência). 
+
+Exemplo: os dados da tabela abaixo são as frequências de observações de cada uma das 4 cores de cabelo e cada um dos sexos. Neste exemplo uma amostra de 300 indivíduos foi analisada para estudar se  a cor do cabelo é esta relacionada com o sexo (Teste de Independência).
+
+![](../img/tnp12.png)
+
+Dizemos que os dados estão arranjados em uma tabela de contingência  2 x 4, ou seja, 2 linhas e 4 colunas 
+( r = 2 e c = 4)
+
+Uma tabela com r linhas e c colunas é denominada de  tabela de contingência   r x c
+
+A hipótese de nulidade para as tabelas de contingência é que as **frequências das observações encontradas nas linhas são independentes das frequências das observações encontradas nas colunas** (ou, que as frequências das colunas são independentes das frequências das linhas). 
+
+$$\begin{cases}
+H_0: \text{a cor do cabelo humano é independente do sexo na população amostrada} \\
+H_1: \text{a cor do cabelo humano não é independente do sexo na população amostrada}
+\end{cases}$$
+
+### Análise Qui-Quadrada para tabelas de contigência.
+
+O procedimento mais comum para se analisar dados de tabelas de contingências é a estatística Qui-quadrado $(\chi^2)$.
+
+$$\chi^2 = \sum_{i=1}^r \sum_{j=1}^c\frac{(f_{ij}-\hat{f}_{ij})^2}{\hat{f}_{ij}}$$
+
+em que $f_{ij}$ é a frequência observada na i-ésima e na j-ésima coluna e $\hat{f}_{ij}$ é a frequência esperada na i-ésima linha e na j-ésima coluna sob $H_0$ verdadeira.
 
 
+#### As frequências esperadas
+
+Para testar $H_0$, comparamos a frequência observada com frequência esperada, a frequência que esperamos se $H_0$ é verdadeira.
+
+Em uma tabela de contigência  r x c a frequência esperada quando $H_0$ é verdadeira é dada por 
+
+$$\hat{f}_{ij}=\frac{f_{i+} \times f_{+j}}{n}$$
+
+ou seja, total da linha i $(f_{i+})$  x total da coluna j $(f_{+j})$ dividido pelo total da amostra $(n)$.
+
+![](../img/tnp13.png)
+
+$$\hat{f}_{11} = \frac{87 \times 100}{300} = 29 \cdots \hat{f}_{24} = \frac{25 \times 200}{300} = 16,67$$
+
+O valor do teste qui-quadrado é dado por:
 
 
+$$\chi^2 = \sum_{i=1}^r \sum_{j=1}^c\frac{(f_{ij}-\hat{f}_{ij})^2}{\hat{f}_{ij}} = \frac{(32-29)^2}{29} + \cdots + \frac{(16-16,67)^2}{16,67} = 8,987$$
 
+Os graus de liberdade são dados por: 
 
+$\nu = (r-1)(c-1) = (2-1)(4-1) = 3$
 
+Assim o valore tabelado $\chi^2_{(3;\;0,05)} = 7,815$
 
+Portanto rejeita-se $H_0$, $\chi^2_{calc.}  >  \chi^2_{tab.} ( p = 0,029)$. O teste é significativo (p<0,05) "a cor do cabelo humano não é independente do sexo.
 
+```{r}
+tab <- matrix(c(32,55,43,65,16,64,9,16),nrow = 2)
+tab
+```
 
+```{r}
+chisq.test(tab)
+```
 
-
-
-
-
-
-
+Tabela de valores esperados
+```{r}
+qui_quadrado <- chisq.test(tab)
+qui_quadrado$expected
+```
 
